@@ -12,8 +12,7 @@ module RnSap
 
     def initialize(_conn_parms)
       puts 'initialized'
-      # conn = Connection.new(_conn_parms)
-      set_conn(Connection.new(_conn_parms))
+      @conn = Connection.new(_conn_parms)
       dump_instance_variables(:conn)
     end
 
@@ -29,7 +28,7 @@ module RnSap
 
       #-- Read Table
       dump_instance_variables(conn)
-      fn_read_table = conn.get_function('RFC_READ_TABLE')
+      fn_read_table = @conn.get_function('RFC_READ_TABLE')
       fc_read_table = fn_read_table.get_function_call
 
       fc_read_table[:QUERY_TABLE] = name.upcase
@@ -40,7 +39,6 @@ module RnSap
 
       fc_read_table.invoke
 
-      # columns = []
       columns_hash = {}
       fc_read_table[:FIELDS].each do |row|
         column = TableColumn.new
@@ -49,16 +47,12 @@ module RnSap
         column.length = row[:LENGTH]
         column.type = row[:TYPE]
         column.description = row[:FIELDTEXT]
-        # dump_instance_variables(column)
-        # columns << column
         columns_hash[column.field_name] = column
       end
 
-      # dump_instance_variables(columns_hash)
-
       list = []
       fc_read_table[:DATA].each do |row|
-        obj = Object.const_set(klass_name, base_obj.class).new
+        obj = base_obj.class.new
         wa = row[:WA]
         fields_down.each do |field|
           column = columns_hash[field.upcase]
@@ -68,20 +62,6 @@ module RnSap
         list << obj
       end
 
-      # dump_instance_variables(list)
-
-      # obj2 = Object.const_set(klass_name, obj.class).new
-      # eval "obj2.#{fields.first.downcase} = 'A'"
-      # eval "obj2.#{fields.second.downcase} = 'B'"
-      # dump_instance_variables(obj2)
-      # fields.each do |field|
-      #   field = field.downcase
-      #   eval("puts obj.#{field}")
-      # end
-
-      # obj2.instance_variables.map do |var|
-      #   puts " ..#{[var, obj2.instance_variable_get(var)].join(':')}"
-      # end
       list
     end
 
@@ -108,5 +88,18 @@ module RnSap
 
   class TableColumn
     attr_accessor :field_name, :offset, :length, :type, :description
+  end
+
+  class Object
+    def self.def_if_not_defined(const, value)
+      mod = is_a?(Module) ? self : self.class
+      mod.const_set(const, value) unless mod.const_defined?(const)
+    end
+
+    def self.redef_without_warning(const, value)
+      mod = is_a?(Module) ? self : self.class
+      mod.send(:remove_const, const) if mod.const_defined?(const)
+      mod.const_set(const, value)
+    end
   end
 end

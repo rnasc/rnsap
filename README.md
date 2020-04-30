@@ -69,10 +69,27 @@ fields = %w[NAME1 LIFNR LAND1]
 # list returns an array of Lfa1 objects
 list = conn.read_table('lfa1', fields, '')
 
-puts "--------  lista final ---------"
+puts "--------  LFA1 - lista final ---------"
 puts "Count: #{list.count}"
 
 list.each do |item|
   puts( "Vendor: #{item.lifnr} / #{item.land1} / #{item.name1}")
+end
+```
+
+When searching for a list of materials:
+
+```ruby
+# declare which fields will be read from SAP
+fields = %w[MATNR MTART MEINS]
+
+# list returns an array of Lfa1 objects
+list = conn.read_table('lfa1', fields, '')
+
+puts "--------  MARA - lista final ---------"
+puts "Count: #{list.count}"
+
+list.each do |item|
+  puts( "Vendor: #{item.matnr} / #{item.mtart} / #{item.meins}")
 end
 ```
