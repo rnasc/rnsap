@@ -65,6 +65,15 @@ module RnSap
       list
     end
 
+    # Close connection
+    def close
+      conn.disconnect
+    end
+
+    private
+
+    attr_writer :conn
+
     def dump_instance_variables(obj)
       puts "Class: #{obj.class} -> #{obj}"
       obj.instance_variables.map do |var|
@@ -80,26 +89,9 @@ module RnSap
       end
       klass
     end
-
-    private
-
-    attr_writer :conn
   end
 
   class TableColumn
     attr_accessor :field_name, :offset, :length, :type, :description
-  end
-
-  class Object
-    def self.def_if_not_defined(const, value)
-      mod = is_a?(Module) ? self : self.class
-      mod.const_set(const, value) unless mod.const_defined?(const)
-    end
-
-    def self.redef_without_warning(const, value)
-      mod = is_a?(Module) ? self : self.class
-      mod.send(:remove_const, const) if mod.const_defined?(const)
-      mod.const_set(const, value)
-    end
   end
 end
