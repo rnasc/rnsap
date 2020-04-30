@@ -7,11 +7,14 @@ require 'yaml'
 include NWRFC
 
 module RnSap
-  class RnSap
-    attr_accessor conn
+  class Sap
+    attr_reader :conn
 
     def initialize(_conn_parms)
-      conn = Connection.new(logon_info)
+      puts 'initialized'
+      # conn = Connection.new(_conn_parms)
+      set_conn(Connection.new(_conn_parms))
+      dump_instance_variables(:conn)
     end
 
     def read_table(name, fields, _clause)
@@ -25,6 +28,7 @@ module RnSap
       base_obj = get_class_instance(klass_name, fields_down)
 
       #-- Read Table
+      dump_instance_variables(conn)
       fn_read_table = conn.get_function('RFC_READ_TABLE')
       fc_read_table = fn_read_table.get_function_call
 
@@ -96,6 +100,10 @@ module RnSap
       end
       klass
     end
+
+    private
+
+    attr_writer :conn
   end
 
   class TableColumn

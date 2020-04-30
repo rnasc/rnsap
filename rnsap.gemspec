@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'rnsap'
-  s.version = '0.1.2'
+  s.version = '0.1.6'
   s.licenses = ['MIT']
   s.date = '2020-04-30'
   s.summary = 'Facilitates SAP RFC calls in Ruby'
