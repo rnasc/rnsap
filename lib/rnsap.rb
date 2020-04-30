@@ -25,12 +25,6 @@ module RnSap
       base_obj = get_class_instance(klass_name, fields_down)
 
       #-- Read Table
-      # logon_info = { 'user' => 'user',
-      #                'passwd' => 'password',
-      #                # 'trace' => 2,
-      #                'client' => '100',
-      #                'ashost' => 'server.com',
-      #                'sysnr' => '00' }
       fn_read_table = conn.get_function('RFC_READ_TABLE')
       fc_read_table = fn_read_table.get_function_call
 

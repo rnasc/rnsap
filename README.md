@@ -54,8 +54,19 @@ The code below:
 - list: returns an array of Lfa1 objects, containing an attribute for each SAP field requested
 
 ```ruby
+# declare SAP logon info and creates the connection
+logon_info = { 'user' => 'user',
+               'passwd' => 'password',
+               # 'trace' => 2,
+               'client' => '100',
+               'ashost' => 'server.com',
+               'sysnr' => '00' }
+conn = RnSap::Sap.new(logon_info)
+
+# declare which fields will be read from SAP
 fields = %w[NAME1 LIFNR LAND1]
 
+# list returns an array of Lfa1 objects
 list = RnSap::Sap.read_table('lfa1', fields, '')
 
 puts "--------  lista final ---------"
