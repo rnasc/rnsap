@@ -52,13 +52,16 @@ The code below:
 - list: returns an array of Lfa1 objects, containing an attribute for each SAP field requested
 
 <code>
+```ruby
 fields = %w[NAME1 LIFNR LAND1]
 
 list = RnSap::Sap.read_table('lfa1', fields, '')
 
 puts "--------  lista final ---------"
 puts "Count: #{list.count}"
+
 list.each do |item|
   puts( "Vendor: #{item.lifnr} / #{item.land1} / #{item.name1}")
 end
+```
 </code>
