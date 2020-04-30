@@ -67,7 +67,7 @@ conn = RnSap::Sap.new(logon_info)
 fields = %w[NAME1 LIFNR LAND1]
 
 # list returns an array of Lfa1 objects
-list = RnSap::Sap.read_table('lfa1', fields, '')
+list = conn.read_table('lfa1', fields, '')
 
 puts "--------  lista final ---------"
 puts "Count: #{list.count}"
