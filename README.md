@@ -51,7 +51,6 @@ The code below:
   isn't implemented yet
 - list: returns an array of Lfa1 objects, containing an attribute for each SAP field requested
 
-<code>
 ```ruby
 fields = %w[NAME1 LIFNR LAND1]
 
@@ -64,4 +63,3 @@ list.each do |item|
   puts( "Vendor: #{item.lifnr} / #{item.land1} / #{item.name1}")
 end
 ```
-</code>
