@@ -95,7 +95,7 @@ with the filter for Material Type (MTART) being "Raw Material" (ROH)
 ```ruby
 
 fields = %w[MATNR MTART MEINS]
-list = conn.read_table('mara', fields, [])
+list = conn.read_table('mara', fields, ['MATNR = "ROH"'])
 
 puts "--------  MARA - lista final ---------"
 puts "Count: #{list.count}"
