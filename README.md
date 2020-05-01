@@ -1,5 +1,6 @@
 # RnSap - SAP RFC 
 [![Gem Version](https://badge.fury.io/rb/rnsap.svg)](https://badge.fury.io/rb/rnsap)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Most the time, when in need to make SAP RFC calls, we have requirements for simple functions:
 - Read a Table (Done)
