@@ -54,6 +54,10 @@ The code below:
   isn't implemented yet
 - list: returns an array of Lfa1 objects, containing an attribute for each SAP field requested
 
+* Connecting to SAP
+Although this example shows 'open' user, password and connection options, keep in mind
+you can use (since Rails 5.2) the Secrets option to securelly store data.
+
 ```ruby
 # declare SAP logon info and creates the connection
 logon_info = { 'user' => 'user',
@@ -63,12 +67,19 @@ logon_info = { 'user' => 'user',
                'ashost' => 'server.com',
                'sysnr' => '00' }
 conn = RnSap::Sap.new(logon_info)
+```
+
+* Reading the entire content of a table
+In this example the table LFA1 (Vendor's A segment - cross company view)
+is read entirely, retreaving the vendor Name, its code and its country.
+
+```ruby
 
 # declare which fields will be read from SAP
 fields = %w[NAME1 LIFNR LAND1]
 
 # list returns an array of Lfa1 objects
-list = conn.read_table('lfa1', fields, '')
+list = conn.read_table('lfa1', fields, [])
 
 puts "--------  LFA1 - lista final ---------"
 puts "Count: #{list.count}"
@@ -77,8 +88,9 @@ list.each do |item|
   puts( "Vendor: #{item.lifnr} / #{item.land1} / #{item.name1}")
 end
 ```
-
-When searching for a list of materials:
+* Reading with filters
+In this example the table MARA (Material general view) is read
+with the filter for Material Type (MTART) being "Raw Material" (ROH)
 
 ```ruby
 

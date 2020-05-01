@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'nwrfc'
-require 'json'
-require 'yaml'
 
 include NWRFC
 
@@ -10,13 +8,19 @@ module RnSap
   class Sap
     attr_reader :conn
 
+    # Constructor requires to receive connection parameters,
+    # a hash containint necessary information to logon to SAP
     def initialize(_conn_parms)
-      puts 'initialized'
       @conn = Connection.new(_conn_parms)
-      dump_instance_variables(:conn)
     end
 
-    def read_table(name, fields, _clause)
+    # Closes SAP connection
+    def close
+      conn.disconnect
+    end
+
+    # Calls Function Module RFC_READ_TABLE
+    def read_table(name, fields, clauses)
       klass_name = name.capitalize
       fields_up = []
       fields_down = []
@@ -24,6 +28,7 @@ module RnSap
         fields_up << field.upcase
         fields_down << field.downcase
       end
+
       base_obj = get_class_instance(klass_name, fields_down)
 
       #-- Read Table
@@ -32,9 +37,15 @@ module RnSap
       fc_read_table = fn_read_table.get_function_call
 
       fc_read_table[:QUERY_TABLE] = name.upcase
+      fc_read_table[:DELIMITER] = '|'
       fields_up.each do |field|
         row = fc_read_table[:FIELDS].new_row
         row[:FIELDNAME] = field
+      end
+
+      clauses.each do |clause|
+        row = fc_read_table[:OPTIONS].new_row
+        row[:TEXT] = clause
       end
 
       fc_read_table.invoke
@@ -63,11 +74,6 @@ module RnSap
       end
 
       list
-    end
-
-    # Close connection
-    def close
-      conn.disconnect
     end
 
     private
