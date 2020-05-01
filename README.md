@@ -2,8 +2,8 @@
 [![Gem Version](https://badge.fury.io/rb/rnsap.svg)](https://badge.fury.io/rb/rnsap)
 
 Most the time, when in need to make SAP RFC calls, we have requirements for simple functions:
-- Read a Table
-(TODO)
+- Read a Table (Done)
+<br/><b>(TODO)</b>
 - Commit Work
 - Do Goods Movement
 - Create Purchase Order
@@ -54,7 +54,7 @@ The code below:
   isn't implemented yet
 - list: returns an array of Lfa1 objects, containing an attribute for each SAP field requested
 
-* Connecting to SAP
+*Connecting to SAP*<br/>
 Although this example shows 'open' user, password and connection options, keep in mind
 you can use (since Rails 5.2) the Secrets option to securelly store data.
 
@@ -69,7 +69,7 @@ logon_info = { 'user' => 'user',
 conn = RnSap::Sap.new(logon_info)
 ```
 
-* Reading the entire content of a table
+*Reading the entire content of a table*<br/>
 In this example the table LFA1 (Vendor's A segment - cross company view)
 is read entirely, retreaving the vendor Name, its code and its country.
 
@@ -88,7 +88,7 @@ list.each do |item|
   puts( "Vendor: #{item.lifnr} / #{item.land1} / #{item.name1}")
 end
 ```
-* Reading with filters
+*Reading with filters* <br/>
 In this example the table MARA (Material general view) is read
 with the filter for Material Type (MTART) being "Raw Material" (ROH)
 
@@ -104,3 +104,4 @@ list.each do |item|
   puts( "Material: #{item.matnr} / #{item.mtart} / #{item.meins}")
 end
 ```
+
