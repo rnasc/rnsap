@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.25
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-RnSap+-+SAP+RFC">RnSap - SAP RFC</h1>
+
+<p><a href="https://badge.fury.io/rb/rnsap"><img src="https://badge.fury.io/rb/rnsap.svg"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a></p>
+
+<p>Most the time, when in need to make SAP RFC calls, we have requirements for simple functions: - Read a Table (Done) &lt;br/&gt;<strong>(TODO)</strong> - Commit Work - Do Goods Movement - Create Purchase Order - Post Finance Document</p>
+
+<p>This Gem simplifies that process, making it simple to get information back from SAP into Ruby/Rails apps.</p>
+
+<h2 id="label-Background">Background</h2>
+
+<p>The NetWeaver SAP RFC framework allows for C/C++ calls to SAP Remote Function Call routines, called Function Modules.</p>
+
+<p>There are always some concerns when doing lib calls, as requirements are not always thought to be the same way as in Ruby.</p>
+
+<p>In some scenarios, we need to have the return as class instances.</p>
+
+<p>This gem carries the calls, returning Ruby-like class instances as return, that you can than use in your projects</p>
+
+<h2 id="label-Dependencies">Dependencies</h2>
+
+<p>This project depends on the &#39;nwrfc&#39; gem, which in turn depends on Ruby ffi to make library calls.</p>
+
+<p>This project also depends on the SAP NW RFC library, which is only available through the SAP connectors, which can be found at their homepage <a href="https://support.sap.com/en/product/connectors/nwrfcsdk.html">support.sap.com/en/product/connectors/nwrfcsdk.html</a>.</p>
+
+<p>Unfortunatelly, it&#39;s required to have SAP access and authorization to download this file.</p>
+
+<h2 id="label-Current+development+stage">Current development stage</h2>
+
+<p>I&#39;m in a early stage development and I would deeply appreciate support from the community to implement the functionalities foreseen for this gem, as well as propose fixes to issues.</p>
+
+<p>For this matter, this gem licence is MIT, therefore you can use and modify it as much as you want, as long as you do the proper reference to my gem.</p>
+
+<h2 id="label-Code+example">Code example</h2>
+
+<p>The code below: - Carries a SAP Table reading, returning the fields requested in an array of objects  with the name of that table - fields: array with SAP field names - read_table: takes the SAP table name and which fields as arguments. The &#39;where&#39; clause  isn&#39;t implemented yet - list: returns an array of Lfa1 objects, containing an attribute for each SAP field requested</p>
+
+<p><em>Connecting to SAP</em>&lt;br/&gt; Although this example shows &#39;open&#39; user, password and connection options, keep in mind you can use (since Rails 5.2) the Secrets option to securelly store data.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># declare SAP logon info and creates the connection
+</span><span class='id identifier rubyid_logon_info'>logon_info</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>user</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>user</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+               <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>passwd</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>password</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+               <span class='comment'># &#39;trace&#39; =&gt; 2,
+</span>               <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>client</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>100</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+               <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ashost</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>server.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+               <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sysnr</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>00</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
+<span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="RnSap.html" title="RnSap (module)">RnSap</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="RnSap/Sap.html" title="RnSap::Sap (class)">Sap</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RnSap/Sap.html#initialize-instance_method" title="RnSap::Sap#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_logon_info'>logon_info</span><span class='rparen'>)</span>
+</code></pre>
+
+<p><em>Reading the entire content of a table</em>&lt;br/&gt; In this example the table LFA1 (Vendor&#39;s A segment - cross company view) is read entirely, retreaving the vendor Name, its code and its country.</p>
+
+<pre class="code ruby"><code class="ruby">
+<span class='comment'># declare which fields will be read from SAP
+</span><span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>NAME1</span><span class='words_sep'> </span><span class='tstring_content'>LIFNR</span><span class='words_sep'> </span><span class='tstring_content'>LAND1</span><span class='tstring_end'>]</span></span>
+
+<span class='comment'># list returns an array of Lfa1 objects
+</span><span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_read_table'>read_table</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lfa1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--------  LFA1 - lista final ---------</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Count: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+  <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Vendor: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_lifnr'>lifnr</span><span class='embexpr_end'>}</span><span class='tstring_content'> / </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_land1'>land1</span><span class='embexpr_end'>}</span><span class='tstring_content'> / </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_name1'>name1</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p><em>Reading with filters</em> &lt;br/&gt; In this example the table MARA (Material general view) is read with the filter for Material Type (MTART) being “Raw Material” (ROH)</p>
+
+<pre class="code ruby"><code class="ruby">
+<span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>MATNR</span><span class='words_sep'> </span><span class='tstring_content'>MTART</span><span class='words_sep'> </span><span class='tstring_content'>MEINS</span><span class='tstring_end'>]</span></span>
+<span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_read_table'>read_table</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mara</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>MATNR = &quot;ROH&quot;</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--------  MARA - lista final ---------</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Count: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+  <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Material: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_matnr'>matnr</span><span class='embexpr_end'>}</span><span class='tstring_content'> / </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_mtart'>mtart</span><span class='embexpr_end'>}</span><span class='tstring_content'> / </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_meins'>meins</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p><em>Passing additional parameters via Hash</em> &lt;br/&gt; From version 0.3.0 onwards, it&#39;s now possible to pass Hash parameters as well. The method now assumes that the entire result should be returned, but now also allows to inform from which row the result is expected (Row Skip) and how many result rows (if available) are expected (Row Count).</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># ================= Reading tables - hash parameters ====================
+</span>
+<span class='comment'># The &#39;where&#39; clauses are passed as an array of strings
+</span><span class='ivar'>@list3</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_read_table'>read_table</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>MARA</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>fields:</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='label'>clauses:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MTART = &#39;ROH&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>row_skip:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>row_count:</span> <span class='int'>2</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--------  MARA - Filtered for Raw Materials - Skip: 1 row; Count: 2 rows ---------</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Count: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@list3</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='ivar'>@list3</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+  <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Material: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_matnr'>matnr</span><span class='embexpr_end'>}</span><span class='tstring_content'> / Creator: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_ernam'>ernam</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+</div></div>
+
+      <div id="footer">
+  Generated on Fri May  8 17:07:38 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.25 (ruby-2.6.1).
+</div>
+
+    </div>
+  </body>
+</html>
