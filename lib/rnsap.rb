@@ -19,8 +19,27 @@ module RnSap
       conn.disconnect
     end
 
-    # Calls Function Module RFC_READ_TABLE
-    def read_table(name, fields, clauses)
+    # def read_table(params = {})
+    #   return [] unless params[:name].present?
+    #   return [] unless params[:fields].present?
+
+    #   name = params[:name]
+    #   fields = params[:fields]
+    #   clauses = params[:clauses].present? ? params[:clauses] : []
+    #   rowskips = params[:row_skip].present? ? params[:row_skip] : 0
+    #   rowcount = params[:row_count].present? ? params[:row_count] : 0
+
+    #   read_table(name, fields, clauses, rowskips, rowcount)
+    # end
+
+    def read_table(name = '', fields = [], clauses = [], _row_skip = 0, _row_count = 0)
+      if name.is_a?(Hash)
+        fields = name[:fields]
+        clauses = name[:clauses]
+        _row_skip = name[:row_skip]
+        _row_count = name[:row_count]
+        name = name[:name]
+      end
       klass_name = name.capitalize
       fields_up = []
       fields_down = []
@@ -37,6 +56,8 @@ module RnSap
       fc_read_table = fn_read_table.get_function_call
 
       fc_read_table[:QUERY_TABLE] = name.upcase
+      fc_read_table[:ROWSKIPS] = _row_skip
+      fc_read_table[:ROWCOUNT] = _row_count
       fc_read_table[:DELIMITER] = '|'
       fields_up.each do |field|
         row = fc_read_table[:FIELDS].new_row
