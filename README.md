@@ -106,3 +106,22 @@ list.each do |item|
 end
 ```
 
+*Passing additional parameters via Hash* <br/>
+From version 0.3.0 onwards, it's now possible to pass Hash parameters as well.
+The method now assumes that the entire result should be returned, but now also
+allows to inform from which row the result is expected (Row Skip) and
+how many result rows (if available) are expected (Row Count).
+
+```ruby
+# ================= Reading tables - hash parameters ====================
+
+# The 'where' clauses are passed as an array of strings
+@list3 = conn.read_table({ name: 'MARA', fields: fields, clauses: ["MTART = 'ROH'"], row_skip: 1, row_count: 2 })
+
+puts '--------  MARA - Filtered for Raw Materials - Skip: 1 row; Count: 2 rows ---------'
+puts "Count: #{@list3.count}"
+
+@list3.each do |item|
+  puts("Material: #{item.matnr} / Creator: #{item.ernam}")
+end
+```
