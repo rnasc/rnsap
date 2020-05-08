@@ -32,7 +32,7 @@ module RnSap
       base_obj = get_class_instance(klass_name, fields_down)
 
       #-- Read Table
-      dump_instance_variables(conn)
+      # dump_instance_variables(conn)
       fn_read_table = @conn.get_function('RFC_READ_TABLE')
       fc_read_table = fn_read_table.get_function_call
 
