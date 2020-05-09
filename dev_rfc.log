@@ -1,0 +1,10 @@
+
+**** Log file opened at 2020-05-09 14:01:55.548199 UTC+02:00 (UTC), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb 13 2020 17:03:56
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /Users/rogerio/rails/rnsap, Program: ruby
+ Hardware: Apple Macintosh with Mac OS X (Darwin) INTEL x86_64 x86_64, Operating_system: Darwin 19.4.0
+ Hostname: OS-RN.local, IP address: 127.0.0.1, IPv6 address: 
+
+2020-05-09 14:01:55.548746 [4562419136] >> Info entry
+	Did not find config file /Users/rogerio/rails/rnsap/sapnwrfc.ini.

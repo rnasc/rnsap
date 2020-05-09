@@ -103,9 +103,10 @@
   <div class="discussion">
     
 <p>This is the central class responsible for SAP remote function calls. Currently the RFC_READ_TABLE BAPI is implemented.</p>
-<ul><li>
-<p>TODO</p>
-</li></ul>
+
+<ul>
+<li>TODO</li>
+</ul>
 
 <p>Implement other SAP BAPIs, such as BAPI_GOODS_MOVEMENT.</p>
 
@@ -182,7 +183,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Closes the instance&#39;s SAP connection#.</p>
+<p>Closes the instance’s SAP connection#.</p>
 </div></span>
   
 </li>
@@ -372,7 +373,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Closes the instance&#39;s SAP connection#</p>
+<p>Closes the instance’s SAP connection#</p>
 
 
   </div>
@@ -416,20 +417,18 @@
 <p>Invokes SAP RFC_READ_TABLE function module remotely, passing the table to be read and receiving back a list of objects of that table.</p>
 
 <p>Example:</p>
-<ul><li>
-<p>name: &#39;lfa1&#39;</p>
-</li><li>
-<p>fields: [&#39;name1&#39;, &#39;land1&#39;]</p>
-</li></ul>
 
-<p>The return will be an array of object <strong>Lfa1</strong> with the attributes <strong>name1</strong> and <strong>land1</strong>.</p>
+<ul>
+<li>name: ‘lfa1’</li>
 
-<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../RnSap.html" title="RnSap (module)">RnSap</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="RnSap::Sap (class)">Sap</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="RnSap::Sap#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_conn_parms'>conn_parms</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_read_table'>read_table</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lfa1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>land1</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
-   <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_name1'>name1</span>
-<span class='kw'>end</span>
-</code></pre>
+<li>fields: [name1, land1]</li>
+</ul>
+
+<p>The return will be an array of object <b>Lfa1</b> with the attributes <b>name1</b> and <b>land1</b>.</p>
+
+<p>“by conn = RnSap::Sap.new(conn_parms) list = conn.read_table(‘lfa1’, [name1, land1]) list.each do |item| puts item.name1 end</p>
+
+<p>“</p>
 
 
   </div>
@@ -485,7 +484,7 @@
       
         &mdash;
         <div class='inline'>
-<p>Optional &#39;where&#39; clauses applicable to the table reading. respects SAP sintax</p>
+<p>Optional ‘where’ clauses applicable to the table reading. respects SAP sintax</p>
 </div>
       
     </li>
@@ -695,7 +694,7 @@
 </div>
 
       <div id="footer">
-  Generated on Fri May  8 17:07:38 2020 by
+  Generated on Sat May  9 18:06:28 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.1).
 </div>

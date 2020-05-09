@@ -58,15 +58,15 @@
       </div>
 
       <div id="content"><div id='filecontents'>
-<h1 id="label-RnSap+-+SAP+RFC">RnSap - SAP RFC</h1>
+<h1 id="rnsap__sap_rfc">RnSap - SAP RFC</h1>
 
-<p><a href="https://badge.fury.io/rb/rnsap"><img src="https://badge.fury.io/rb/rnsap.svg"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a></p>
+<p><a href="https://badge.fury.io/rb/rnsap"><img src="https://badge.fury.io/rb/rnsap.svg" alt="Gem Version" /></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a></p>
 
-<p>Most the time, when in need to make SAP RFC calls, we have requirements for simple functions: - Read a Table (Done) &lt;br/&gt;<strong>(TODO)</strong> - Commit Work - Do Goods Movement - Create Purchase Order - Post Finance Document</p>
+<p>Most the time, when in need to make SAP RFC calls, we have requirements for simple functions: - Read a Table (Done) <br /><b>(TODO)</b> - Commit Work - Do Goods Movement - Create Purchase Order - Post Finance Document</p>
 
 <p>This Gem simplifies that process, making it simple to get information back from SAP into Ruby/Rails apps.</p>
 
-<h2 id="label-Background">Background</h2>
+<h2 id="background">Background</h2>
 
 <p>The NetWeaver SAP RFC framework allows for C/C++ calls to SAP Remote Function Call routines, called Function Modules.</p>
 
@@ -76,85 +76,81 @@
 
 <p>This gem carries the calls, returning Ruby-like class instances as return, that you can than use in your projects</p>
 
-<h2 id="label-Dependencies">Dependencies</h2>
+<h2 id="dependencies">Dependencies</h2>
 
-<p>This project depends on the &#39;nwrfc&#39; gem, which in turn depends on Ruby ffi to make library calls.</p>
+<p>This project depends on the ‘nwrfc’ gem, which in turn depends on Ruby ffi to make library calls.</p>
 
-<p>This project also depends on the SAP NW RFC library, which is only available through the SAP connectors, which can be found at their homepage <a href="https://support.sap.com/en/product/connectors/nwrfcsdk.html">support.sap.com/en/product/connectors/nwrfcsdk.html</a>.</p>
+<p>This project also depends on the SAP NW RFC library, which is only available through the SAP connectors, which can be found at their homepage https://support.sap.com/en/product/connectors/nwrfcsdk.html.</p>
 
-<p>Unfortunatelly, it&#39;s required to have SAP access and authorization to download this file.</p>
+<p>Unfortunatelly, it’s required to have SAP access and authorization to download this file.</p>
 
-<h2 id="label-Current+development+stage">Current development stage</h2>
+<h2 id="current_development_stage">Current development stage</h2>
 
-<p>I&#39;m in a early stage development and I would deeply appreciate support from the community to implement the functionalities foreseen for this gem, as well as propose fixes to issues.</p>
+<p>I’m in a early stage development and I would deeply appreciate support from the community to implement the functionalities foreseen for this gem, as well as propose fixes to issues.</p>
 
 <p>For this matter, this gem licence is MIT, therefore you can use and modify it as much as you want, as long as you do the proper reference to my gem.</p>
 
-<h2 id="label-Code+example">Code example</h2>
+<h2 id="code_example">Code example</h2>
 
-<p>The code below: - Carries a SAP Table reading, returning the fields requested in an array of objects  with the name of that table - fields: array with SAP field names - read_table: takes the SAP table name and which fields as arguments. The &#39;where&#39; clause  isn&#39;t implemented yet - list: returns an array of Lfa1 objects, containing an attribute for each SAP field requested</p>
+<p>The code below: - Carries a SAP Table reading, returning the fields requested in an array of objects with the name of that table - fields: array with SAP field names - read_table: takes the SAP table name and which fields as arguments. The ‘where’ clause isn’t implemented yet - list: returns an array of Lfa1 objects, containing an attribute for each SAP field requested</p>
 
-<p><em>Connecting to SAP</em>&lt;br/&gt; Although this example shows &#39;open&#39; user, password and connection options, keep in mind you can use (since Rails 5.2) the Secrets option to securelly store data.</p>
+<p><em>Connecting to SAP</em><br /> Although this example shows ‘open’ user, password and connection options, keep in mind you can use (since Rails 5.2) the Secrets option to securelly store data.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='comment'># declare SAP logon info and creates the connection
-</span><span class='id identifier rubyid_logon_info'>logon_info</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>user</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>user</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-               <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>passwd</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>password</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-               <span class='comment'># &#39;trace&#39; =&gt; 2,
-</span>               <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>client</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>100</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-               <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ashost</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>server.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-               <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sysnr</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>00</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
-<span class='id identifier rubyid_conn'>conn</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="RnSap.html" title="RnSap (module)">RnSap</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="RnSap/Sap.html" title="RnSap::Sap (class)">Sap</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RnSap/Sap.html#initialize-instance_method" title="RnSap::Sap#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_logon_info'>logon_info</span><span class='rparen'>)</span>
-</code></pre>
+<p>“by</p>
 
-<p><em>Reading the entire content of a table</em>&lt;br/&gt; In this example the table LFA1 (Vendor&#39;s A segment - cross company view) is read entirely, retreaving the vendor Name, its code and its country.</p>
+<h1 id="declare_sap_logon_info_and_creates_the_connection">declare SAP logon info and creates the connection</h1>
 
-<pre class="code ruby"><code class="ruby">
-<span class='comment'># declare which fields will be read from SAP
-</span><span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>NAME1</span><span class='words_sep'> </span><span class='tstring_content'>LIFNR</span><span class='words_sep'> </span><span class='tstring_content'>LAND1</span><span class='tstring_end'>]</span></span>
+<p>logon_info = { ‘user’ =&gt; ‘user’, ‘passwd’ =&gt; ‘password’, # ‘trace’ =&gt; 2, ‘client’ =&gt; ‘100’, ‘ashost’ =&gt; ‘server.com’, ‘sysnr’ =&gt; ‘00’ } conn = RnSap::Sap.new(logon_info)</p>
 
-<span class='comment'># list returns an array of Lfa1 objects
-</span><span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_read_table'>read_table</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lfa1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<p>“</p>
 
-<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--------  LFA1 - lista final ---------</span><span class='tstring_end'>&quot;</span></span>
-<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Count: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<p><em>Reading the entire content of a table</em><br /> In this example the table LFA1 (Vendor’s A segment - cross company view) is read entirely, retreaving the vendor Name, its code and its country.</p>
 
-<span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
-  <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Vendor: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_lifnr'>lifnr</span><span class='embexpr_end'>}</span><span class='tstring_content'> / </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_land1'>land1</span><span class='embexpr_end'>}</span><span class='tstring_content'> / </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_name1'>name1</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span>
-</code></pre>
+<p>“by</p>
 
-<p><em>Reading with filters</em> &lt;br/&gt; In this example the table MARA (Material general view) is read with the filter for Material Type (MTART) being “Raw Material” (ROH)</p>
+<h1 id="declare_which_fields_will_be_read_from_sap">declare which fields will be read from SAP</h1>
 
-<pre class="code ruby"><code class="ruby">
-<span class='id identifier rubyid_fields'>fields</span> <span class='op'>=</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>MATNR</span><span class='words_sep'> </span><span class='tstring_content'>MTART</span><span class='words_sep'> </span><span class='tstring_content'>MEINS</span><span class='tstring_end'>]</span></span>
-<span class='id identifier rubyid_list'>list</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_read_table'>read_table</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mara</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>MATNR = &quot;ROH&quot;</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<p>fields = %w[NAME1 LIFNR LAND1]</p>
 
-<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--------  MARA - lista final ---------</span><span class='tstring_end'>&quot;</span></span>
-<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Count: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<h1 id="list_returns_an_array_of_lfa1_objects">list returns an array of Lfa1 objects</h1>
 
-<span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
-  <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Material: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_matnr'>matnr</span><span class='embexpr_end'>}</span><span class='tstring_content'> / </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_mtart'>mtart</span><span class='embexpr_end'>}</span><span class='tstring_content'> / </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_meins'>meins</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span>
-</code></pre>
+<p>list = conn.read_table(‘lfa1’, fields, [])</p>
 
-<p><em>Passing additional parameters via Hash</em> &lt;br/&gt; From version 0.3.0 onwards, it&#39;s now possible to pass Hash parameters as well. The method now assumes that the entire result should be returned, but now also allows to inform from which row the result is expected (Row Skip) and how many result rows (if available) are expected (Row Count).</p>
+<p>puts “——– LFA1 - lista final ———” puts “Count: #listlist.count”</p>
 
-<pre class="code ruby"><code class="ruby"><span class='comment'># ================= Reading tables - hash parameters ====================
-</span>
-<span class='comment'># The &#39;where&#39; clauses are passed as an array of strings
-</span><span class='ivar'>@list3</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span><span class='period'>.</span><span class='id identifier rubyid_read_table'>read_table</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>MARA</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>fields:</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='label'>clauses:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MTART = &#39;ROH&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>row_skip:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>row_count:</span> <span class='int'>2</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+<p>list.each do |item| puts( “Vendor: #itemitem.lifnr / #itemitem.land1 / #itemitem.name1”) end</p>
 
-<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>--------  MARA - Filtered for Raw Materials - Skip: 1 row; Count: 2 rows ---------</span><span class='tstring_end'>&#39;</span></span>
-<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Count: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@list3</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<p>“Reading with filters* <br /> In this example the table MARA (Material general view) is read with the filter for Material Type (MTART) being “Raw Material” (ROH)</p>
 
-<span class='ivar'>@list3</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
-  <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Material: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_matnr'>matnr</span><span class='embexpr_end'>}</span><span class='tstring_content'> / Creator: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_ernam'>ernam</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span>
-</code></pre>
+<p>“by</p>
+
+<p>fields = %w[MATNR MTART MEINS] list = conn.read_table(‘mara’, fields, [MATNR = ROH])</p>
+
+<p>puts “——– MARA - lista final ———” puts “Count: #listlist.count”</p>
+
+<p>list.each do |item| puts( “Material: #itemitem.matnr / #itemitem.mtart / #itemitem.meins”) end</p>
+
+<p>“</p>
+
+<p><em>Passing additional parameters via Hash</em> <br /> From version 0.3.0 onwards, it’s now possible to pass Hash parameters as well. The method now assumes that the entire result should be returned, but now also allows to inform from which row the result is expected (Row Skip) and how many result rows (if available) are expected (Row Count).</p>
+
+<p>“by</p>
+
+<h1 id="_reading_tables__hash_parameters_">================= Reading tables - hash parameters ====================</h1>
+
+<h1 id="the_where_clauses_are_passed_as_an_array_of_strings">The ‘where’ clauses are passed as an array of strings</h1>
+
+<p>@list3 = conn.read_table({ name: ‘MARA’, fields: fields, clauses: [MTART = ROH], row_skip: 1, row_count: 2 })</p>
+
+<p>puts ‘——– MARA - Filtered for Raw Materials - Skip: 1 row; Count: 2 rows ———’ puts “Count: #@list3@list3.count”</p>
+
+<p>@list3.each do |item| puts(“Material: #itemitem.matnr / Creator: #itemitem.ernam”) end</p>
+
+<p>“</p>
 </div></div>
 
       <div id="footer">
-  Generated on Fri May  8 17:07:37 2020 by
+  Generated on Sat May  9 18:06:28 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.1).
 </div>
