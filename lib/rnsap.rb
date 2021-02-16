@@ -135,29 +135,24 @@ module RnSap
       fc_preq_detail.invoke
       
       list = []
-
+      avoid_list = ['!','__','+', '=','!', '?','~','>', '<']
       fc_preq_detail[:REQUISITION_ITEMS].each do |row|
         preq = PreqItem.new
         preq.class.instance_methods.each do |method_name|
-          value = row[method_name.to_sym]
-          eval("preq.#{method_name} = '#{value}'")
-        rescue
+          begin
+            if preq.respond_to?("#{method_name}=")
+              unless avoid_list.any? { |word| method_name.to_s.include?(word)}
+                value = row[method_name]
+                eval("preq.#{method_name} = '#{value}'")
+              end
+            end
+          rescue
+          end
         end
         list.push(preq)
-        # row.keys.each {|key| puts "Chave: #{key} Valor: #{row[key.to_sym]}"}
-        # obj = base_obj.class.new
-        # wa = row[:WA]
-        # fields_down.each do |field|
-        #   column = columns_hash[field.upcase]
-        #   value = wa[column.offset.to_i, column.length.to_i]
-        #   eval("obj.#{field} = '#{value}'")
-        # end
-        # list << obj
       end
 
       list
-
-      
     end
 
     private
