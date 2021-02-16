@@ -4,15 +4,20 @@
 
 Most the time, when in need to make SAP RFC calls, we have requirements for simple functions:
 - Read a Table (Done)
+- Get Purchase Requisition details (work in progress)
 <br/><b>(TODO)</b>
+- Get Purchase Requisition Release Info (TODO)
+- Get Purchase Order details (TODO)
+- Get Purchase Order Release Info (TODO)
+- Release Purchase Requisition (TODO)
+- Release Purchase Order (TODO)
 - Commit Work
 - Do Goods Movement
 - Create Purchase Order
 - Post Finance Document
 
-This Gem simplifies that process, making it simple to get information back from SAP
-into Ruby/Rails apps.
-
+This Gem simplifies that process, making it quick to get information back from SAP
+into a Ruby/Rails apps.
 ## Background
 The NetWeaver SAP RFC framework allows for C/C++ calls to SAP Remote Function Call routines, 
 called Function Modules. 
@@ -45,7 +50,12 @@ to issues.
 For this matter, this gem licence is MIT, therefore you can use and modify it as much
 as you want, as long as you do the proper reference to my gem.
 
-## Code example
+## RFC_READ_TABLE - Reading an SAP table
+
+When you know where to look for, SAP will provide almost all its information through
+table reading. the method <code>read_table</code> will read the SAP table and return it 
+as an array of objects.
+### Code example
 
 The code below:
 - Carries a SAP Table reading, returning the fields requested in an array of objects
@@ -125,3 +135,8 @@ puts "Count: #{@list3.count}"
   puts("Material: #{item.matnr} / Creator: #{item.ernam}")
 end
 ```
+## BAPI_REQUISITION_GETRELINFO - Obtain details for a Purchase Requisition
+
+When the Purchase requisition number is already known (ex: you obtained it through reading
+table EBAN), the method <code>preq_detail</code> will provide all information related
+to it, including descriptions, account assignment objects (ex: cost center) and texts. 
