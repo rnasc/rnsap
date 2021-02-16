@@ -121,6 +121,45 @@ module RnSap
       list
     end
 
+    def preq_detail(preq = 0, acc_assignment = 'X', item_text = 'X', services = 'X', services_texts = 'X')
+      #-- Execute BAPI_REQUISITION_GETDETAIL
+      fn_preq_detail = @conn.get_function('BAPI_REQUISITION_GETDETAIL')
+      fc_preq_detail = fn_preq_detail.get_function_call
+      
+      fc_preq_detail[:NUMBER] = preq
+      fc_preq_detail[:ACCOUNT_ASSIGNMENT] = acc_assignment
+      fc_preq_detail[:ITEM_TEXTS] = item_text
+      fc_preq_detail[:SERVICES] = services
+      fc_preq_detail[:SERVICE_TEXTS] = services_texts
+      
+      fc_preq_detail.invoke
+      
+      list = []
+
+      fc_preq_detail[:REQUISITION_ITEMS].each do |row|
+        preq = PreqItem.new
+        preq.class.instance_methods.each do |method_name|
+          value = row[method_name.to_sym]
+          eval("preq.#{method_name} = '#{value}'")
+        rescue
+        end
+        list.push(preq)
+        # row.keys.each {|key| puts "Chave: #{key} Valor: #{row[key.to_sym]}"}
+        # obj = base_obj.class.new
+        # wa = row[:WA]
+        # fields_down.each do |field|
+        #   column = columns_hash[field.upcase]
+        #   value = wa[column.offset.to_i, column.length.to_i]
+        #   eval("obj.#{field} = '#{value}'")
+        # end
+        # list << obj
+      end
+
+      list
+
+      
+    end
+
     private
 
     attr_writer :conn
@@ -148,22 +187,4 @@ module RnSap
     end
   end
 
-  # class used to represent a Table Column. Used internally
-  # to map SAP's returned working area (WA) into class instances
-  class TableColumn
-    # class used to represent a Table Column. Used internally
-    # to map SAP's returned working area (WA) into class instances
-    class TableColumn
-      # @return [String] Name of the table field
-      attr_accessor :field_name
-      # @return [Integer] Number of characters to offset when looking for the field in the Working Area (WA)
-      attr_accessor :offset
-      # @return [Integer] Length of the field returned in the Working Area (WA)
-      attr_accessor :length
-      # @return [String] Data Type (ex: Character, Decimal, Number)
-      attr_accessor :type
-      # @return [String] Field Description returned by the SAP dictionary
-      attr_accessor :description
-    end
-  end
 end
