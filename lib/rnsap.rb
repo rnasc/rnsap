@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'nwrfc'
+require 'read_table/table_column'
 
 include NWRFC
 

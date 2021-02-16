@@ -13,8 +13,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'nwrfc', '~> 0.0.9'
   s.add_development_dependency 'rspec'
 
-  s.files = [
-    'lib/rnsap.rb'
-  ]
+  s.files = Dir['lib/**/*.rb'] + Dir['lib/preq_detail/**/*.rb']
   s.require_paths = ['lib']
 end

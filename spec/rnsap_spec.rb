@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'yaml'
 require_relative '../lib/rnsap'
+require_relative '../lib/preq_detail/preq_item'
 
 describe RnSap::Sap do
   let(:params) do
@@ -19,30 +20,81 @@ describe RnSap::Sap do
       'sysnr' => params['sysnr'] }
   end
 
+  let(:test_data) do
+    file = File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_data.yml'))
+    YAML.safe_load(File.read(file))
+  end
+
   context 'Based on connection available parameters' do
     it 'connects to SAP' do
       conn = RnSap::Sap.new(logon_info)
-      expect(conn).not_to eq(nil)
+      expect(conn).not_to be_nil
       conn.close
     end
   end
 
   context 'Reads table information from SAP' do
-    it 'passing only Vendor table and some fields' do
+    it 'gets at least one vendor' do
       conn = RnSap::Sap.new(logon_info)
       list = conn.read_table('lfa1', %w[NAME1 LIFNR LAND1])
       expect(list.count).to be > 0
     end
-    it 'passing Material table, fields and filter for Raw Materials' do
+    it 'gets at least one Raw material' do
       conn = RnSap::Sap.new(logon_info)
       list = conn.read_table('mara', %w[matnr ernam], ["MTART = 'ROH'"])
       expect(list.count).to be > 0
     end
 
-    it 'passing hash parameter with table, fields, filter, records to skip and max number of records' do
+    it 'gets a two Raw materials skipping the first in the database' do
       conn = RnSap::Sap.new(logon_info)
       list = conn.read_table({ name: 'mara', fields: %w[matnr ernam], clauses: ["MTART = 'ROH'"], row_skip: 1, row_count: 2 })
       expect(list.count).to eq(2)
     end
   end
+
+  context 'Gets information from a Purchase Requisition' do
+    it 'Obtains details from purchase requisition' do
+      conn = RnSap::Sap.new(logon_info)
+      pr = test_data['preqs']['number']
+      puts "    -> Pesquisando P.Req: #{pr}"
+      details = conn.preq_detail(pr)
+
+      expect(details).not_to be_nil 
+      expect(details.class).to be(Array)
+    end
+
+    it 'gets purchase requisition Release Strategy info' do
+      conn = RnSap::Sap.new(logon_info)
+      pr = test_data['preqs']['number']
+      puts "    -> Pesquisando P.Req: #{pr}"
+      details = conn.preq_release_strategy_info(pr)
+
+      expect(details).not_to be_nil 
+      expect(details.class).to be(Array)
+    end
+  end
+
+  context 'Gets information from a Purchase Order' do
+    it 'Obtains details from purchase requisition' do
+      conn = RnSap::Sap.new(logon_info)
+      po = test_data['po']['number']
+      puts "    -> Pesquisando P.Order: #{po}"
+      details = conn.po_detail(po)
+
+      expect(details).not_to be_nil 
+      expect(details.class).to be(Array)
+    end
+
+    it 'gets purchase requisition Release Strategy info' do
+      conn = RnSap::Sap.new(logon_info)
+      po = test_data['po']['number']
+      puts "    -> Pesquisando P.Order: #{po}"
+      details = conn.po_release_strategy_info(po)
+
+      expect(details).not_to be_nil 
+      expect(details.class).to be(Array)
+    end
+  end
+
+  
 end
