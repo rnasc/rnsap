@@ -10,7 +10,7 @@ require 'preq_detail/preq_contract_limits'
 require 'preq_detail/preq_services'
 require 'preq_detail/preq_services_texts'
 require 'preq_detail/preq_srv_accass_values'
-require 'preq_detail/preq_return'
+require 'return'
 require 'helper/rfc_helper'
 
 include NWRFC
@@ -154,7 +154,7 @@ module RnSap
       preq_services = get_object_list(fc_preq_detail[:REQUISITION_SERVICES], PreqItem.to_s)
       preq_services_texts = get_object_list(fc_preq_detail[:REQUISITION_SERVICES_TEXTS], PreqServicesText.to_s)
       preq_srv_accass_values = get_object_list(fc_preq_detail[:REQUISITION_SRV_ACCASS_VALUES], PreqServicesAccassValues.to_s)
-      preq_return = get_object_list(fc_preq_detail[:RETURN], PreqReturn.to_s)
+      tb_return = get_object_list(fc_preq_detail[:RETURN], Return.to_s)
 
       {
         preq_items: preq_items,
@@ -165,12 +165,41 @@ module RnSap
         preq_services: preq_services,
         preq_services_texts: preq_services_texts,
         preq_srv_accass_values: preq_srv_accass_values,
-        preq_return: preq_return,
+        tb_return: tb_return,
       }
     end
 
-    def preq_release_strategy_info(pr = 0)
-      []
+    def preq_release_strategy_info(preq = 0, item = "00000", rel_code = "")
+      #-- Execute BAPI_REQUISITION_GETRELINFO
+      fn_preq_rel_strat_info = @conn.get_function('BAPI_REQUISITION_GETRELINFO')
+      fn_preq_rel_strat_info = fn_preq_rel_strat_info.get_function_call
+      
+      fn_preq_rel_strat_info[:NUMBER] = preq
+      fn_preq_rel_strat_info[:ITEM] = item
+      fn_preq_rel_strat_info[:REL_CODE] = rel_code
+      
+      fn_preq_rel_strat_info.invoke
+
+      #-- Execute conversions for returned tables to a designated list (array)
+      tb_return = get_object_list(fn_preq_rel_strat_info[:RETURN], Return.to_s)
+
+#  GENERAL_RELEASE_INFO
+#  RELEASE_PREREQUISITES
+#  RELEASE_ALREADY_POSTED
+#  RELEASE_FINAL
+#  RETURN      
+      {
+        # preq_items: preq_items,
+        # preq_acct_assignment: preq_acct_assignment,
+        # preq_text: preq_text,
+        # preq_limits: preq_limits,
+        # preq_contract_limits: preq_contract_limits,
+        # preq_services: preq_services,
+        # preq_services_texts: preq_services_texts,
+        # preq_srv_accass_values: preq_srv_accass_values,
+        tb_return: tb_return,
+      }
+
     end
 
     def po_detail(po = 0)

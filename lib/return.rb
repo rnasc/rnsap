@@ -1,5 +1,5 @@
 # class used to represent RETURN. Used internally
-class PreqReturn
+class Return
   # @return [String] Message code
   attr_accessor :code
   # @return [String] Application log: Internal message serial number
