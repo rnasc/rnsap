@@ -288,51 +288,40 @@ a {
   <dl style="margin-left: 15px;">
   <dt id="example_group_2" class="passed">Based on connection available parameters</dt>
     <script type="text/javascript">moveProgressBar('12.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">connects to SAP</span><span class='duration'>0.35571s</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">connects to SAP</span><span class='duration'>0.34244s</span></dd>
   </dl>
 </div>
 <div id="div_group_3" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_3" class="passed">Reads table information from SAP</dt>
     <script type="text/javascript">moveProgressBar('25.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">gets at least one vendor</span><span class='duration'>0.83832s</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">gets at least one vendor</span><span class='duration'>0.92518s</span></dd>
     <script type="text/javascript">moveProgressBar('37.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">gets at least one Raw material</span><span class='duration'>0.34904s</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">gets at least one Raw material</span><span class='duration'>0.33185s</span></dd>
     <script type="text/javascript">moveProgressBar('50.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">gets a two Raw materials skipping the first in the database</span><span class='duration'>0.33543s</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">gets a two Raw materials skipping the first in the database</span><span class='duration'>0.34456s</span></dd>
   </dl>
 </div>
 <div id="div_group_4" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_4" class="passed">Gets information from a Purchase Requisition</dt>
     <script type="text/javascript">moveProgressBar('62.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">Obtains details from purchase requisition</span><span class='duration'>1.78814s</span></dd>
-    <script type="text/javascript">makeRed('rspec-header');</script>
-    <script type="text/javascript">makeRed('div_group_4');</script>
-    <script type="text/javascript">makeRed('example_group_4');</script>
+    <dd class="example passed"><span class="passed_spec_name">Obtains details from purchase requisition</span><span class='duration'>1.75805s</span></dd>
     <script type="text/javascript">moveProgressBar('75.0');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">gets purchase requisition Release Strategy info</span>
-      <span class="duration">0.26008s</span>
-      <div class="failure" id="failure_1">
-        <div class="message"><pre>  Failure/Error: details = conn.preq_release_strategy_info(pr)
-
-  NoMethodError:
-    undefined method `preq_release_strategy_info&#39; for #&lt;RnSap::Sap:0x00007ff6a01f21a8&gt;
-  # ./spec/rnsap_spec.rb:70:in `block (3 levels) in &lt;top (required)&gt;&#39;</pre></div>
-        <div class="backtrace"><pre>./spec/rnsap_spec.rb:70:in `block (3 levels) in &lt;top (required)&gt;&#39;</pre></div>
-    <pre class="ruby"><code><span class="linenum">68</span>      pr = test_data['preqs']['number']
-<span class="linenum">69</span>      puts "    -> Pesquisando P.Req: #{pr}"
-<span class="offending"><span class="linenum">70</span>      details = conn.preq_release_strategy_info(pr)</span>
-<span class="linenum">71</span>
-<span class="linenum">72</span>      expect(details).not_to be_nil 
-<span class="linenum">73</span><span class="comment"># Install the coderay gem to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
+    <dd class="example passed"><span class="passed_spec_name">gets purchase requisition Release Strategy info</span><span class='duration'>0.24968s</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>3.97326 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "6 examples, 1 failure";</script>
+<div id="div_group_5" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_5" class="passed">Gets information from a Purchase Order</dt>
+    <script type="text/javascript">moveProgressBar('87.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">Obtains details from purchase requisition</span><span class='duration'>0.24534s</span></dd>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">gets purchase requisition Release Strategy info</span><span class='duration'>0.26028s</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>4.46208 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "8 examples, 0 failures";</script>
 </div>
 </div>
 </body>

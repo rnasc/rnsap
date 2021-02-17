@@ -2,6 +2,16 @@
 
 require 'nwrfc'
 require 'read_table/table_column'
+require 'preq_detail/preq_item'
+require 'preq_detail/preq_acct_assignment'
+require 'preq_detail/preq_text'
+require 'preq_detail/preq_limits'
+require 'preq_detail/preq_contract_limits'
+require 'preq_detail/preq_services'
+require 'preq_detail/preq_services_texts'
+require 'preq_detail/preq_srv_accass_values'
+require 'preq_detail/preq_return'
+require 'helper/rfc_helper'
 
 include NWRFC
 
@@ -134,31 +144,69 @@ module RnSap
       fc_preq_detail[:SERVICE_TEXTS] = services_texts
       
       fc_preq_detail.invoke
-      
-      list = []
-      avoid_list = ['!','__','+', '=','!', '?','~','>', '<']
-      fc_preq_detail[:REQUISITION_ITEMS].each do |row|
-        preq = PreqItem.new
-        preq.class.instance_methods.each do |method_name|
-          begin
-            if preq.respond_to?("#{method_name}=")
-              unless avoid_list.any? { |word| method_name.to_s.include?(word)}
-                value = row[method_name]
-                eval("preq.#{method_name} = '#{value}'")
-              end
-            end
-          rescue
-          end
-        end
-        list.push(preq)
-      end
 
-      list
+      #-- Execute conversions for returned tables to a designated list (array)
+      preq_items = get_object_list(fc_preq_detail[:REQUISITION_ITEMS], PreqItem.to_s)
+      preq_acct_assignment = get_object_list(fc_preq_detail[:REQUISITION_ACCOUNT_ASSIGNMENT], PreqAcctAssignment.to_s)
+      preq_text = get_object_list(fc_preq_detail[:REQUISITION_TEXT], PreqText.to_s)
+      preq_limits = get_object_list(fc_preq_detail[:REQUISITION_LIMITS], PreqLimits.to_s)
+      preq_contract_limits = get_object_list(fc_preq_detail[:REQUISITION_CONTRACT_LIMITS], PreqContractLimits.to_s)
+      preq_services = get_object_list(fc_preq_detail[:REQUISITION_SERVICES], PreqItem.to_s)
+      preq_services_texts = get_object_list(fc_preq_detail[:REQUISITION_SERVICES_TEXTS], PreqServicesText.to_s)
+      preq_srv_accass_values = get_object_list(fc_preq_detail[:REQUISITION_SRV_ACCASS_VALUES], PreqServicesAccassValues.to_s)
+      preq_return = get_object_list(fc_preq_detail[:RETURN], PreqReturn.to_s)
+
+      {
+        preq_items: preq_items,
+        preq_acct_assignment: preq_acct_assignment,
+        preq_text: preq_text,
+        preq_limits: preq_limits,
+        preq_contract_limits: preq_contract_limits,
+        preq_services: preq_services,
+        preq_services_texts: preq_services_texts,
+        preq_srv_accass_values: preq_srv_accass_values,
+        preq_return: preq_return,
+      }
+    end
+
+    def preq_release_strategy_info(pr = 0)
+      []
+    end
+
+    def po_detail(po = 0)
+      []
+    end
+
+    def po_release_strategy_info(po = 1)
+      []
     end
 
     private
 
     attr_writer :conn
+
+# def get_object_list(table, klass_name)
+#   list = []
+#   avoid_list = ['!','__','+', '=','!', '?','~','>', '<']
+#   table.each do |row|
+#     byebug
+#     obj = eval("#{klass_name}.new")
+#     obj.class.instance_methods.each do |method_name|
+#       begin
+#         if obj.respond_to?("#{method_name}=")
+#           unless avoid_list.any? { |word| method_name.to_s.include?(word)}
+#             value = row[method_name]
+#             eval("obj.#{method_name} = '#{value}'")
+#           end
+#         end
+#       rescue
+#       end
+#     end
+#     list.push(obj)
+#   end
+
+#   list
+# end
 
     # Dumps to the output the content of an object
     def dump_instance_variables(obj)

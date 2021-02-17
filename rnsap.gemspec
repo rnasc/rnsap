@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'rnsap'
-  s.version = '0.4.0'
+  s.version = '0.4.1'
   s.licenses = ['MIT']
   s.date = '2020-04-30'
   s.summary = 'Facilitates SAP RFC calls in Ruby'
@@ -13,6 +13,10 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'nwrfc', '~> 0.0.9'
   s.add_development_dependency 'rspec'
 
-  s.files = Dir['lib/**/*.rb'] + Dir['lib/preq_detail/**/*.rb']
+  s.files = 
+    Dir['lib/**/*.rb'] + 
+    Dir['lib/preq_detail/**/*.rb'] +
+    Dir['lib/helper/**/*.rb'] 
+
   s.require_paths = ['lib']
 end

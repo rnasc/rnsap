@@ -25,28 +25,27 @@ describe RnSap::Sap do
     YAML.safe_load(File.read(file))
   end
 
+  let(:conn) do
+    RnSap::Sap.new(logon_info)
+  end
+
   context 'Based on connection available parameters' do
     it 'connects to SAP' do
-      conn = RnSap::Sap.new(logon_info)
       expect(conn).not_to be_nil
-      conn.close
     end
   end
 
   context 'Reads table information from SAP' do
     it 'gets at least one vendor' do
-      conn = RnSap::Sap.new(logon_info)
       list = conn.read_table('lfa1', %w[NAME1 LIFNR LAND1])
       expect(list.count).to be > 0
     end
     it 'gets at least one Raw material' do
-      conn = RnSap::Sap.new(logon_info)
       list = conn.read_table('mara', %w[matnr ernam], ["MTART = 'ROH'"])
       expect(list.count).to be > 0
     end
 
     it 'gets a two Raw materials skipping the first in the database' do
-      conn = RnSap::Sap.new(logon_info)
       list = conn.read_table({ name: 'mara', fields: %w[matnr ernam], clauses: ["MTART = 'ROH'"], row_skip: 1, row_count: 2 })
       expect(list.count).to eq(2)
     end
@@ -54,7 +53,6 @@ describe RnSap::Sap do
 
   context 'Gets information from a Purchase Requisition' do
     it 'Obtains details from purchase requisition' do
-      conn = RnSap::Sap.new(logon_info)
       pr = test_data['preqs']['number']
       puts "    -> Pesquisando P.Req: #{pr}"
       details = conn.preq_detail(pr)
@@ -64,9 +62,7 @@ describe RnSap::Sap do
     end
 
     it 'gets purchase requisition Release Strategy info' do
-      conn = RnSap::Sap.new(logon_info)
       pr = test_data['preqs']['number']
-      puts "    -> Pesquisando P.Req: #{pr}"
       details = conn.preq_release_strategy_info(pr)
 
       expect(details).not_to be_nil 
@@ -76,7 +72,6 @@ describe RnSap::Sap do
 
   context 'Gets information from a Purchase Order' do
     it 'Obtains details from purchase requisition' do
-      conn = RnSap::Sap.new(logon_info)
       po = test_data['po']['number']
       puts "    -> Pesquisando P.Order: #{po}"
       details = conn.po_detail(po)
@@ -86,9 +81,7 @@ describe RnSap::Sap do
     end
 
     it 'gets purchase requisition Release Strategy info' do
-      conn = RnSap::Sap.new(logon_info)
       po = test_data['po']['number']
-      puts "    -> Pesquisando P.Order: #{po}"
       details = conn.po_release_strategy_info(po)
 
       expect(details).not_to be_nil 
