@@ -4,7 +4,7 @@
 
 Most the time, when in need to make SAP RFC calls, we have requirements for simple functions:
 - Read a Table (Done)
-- Get Purchase Requisition details (work in progress)
+- Get Purchase Requisition details (Done)
 <br/><b>(TODO)</b>
 - Get Purchase Requisition Release Info (TODO)
 - Get Purchase Order details (TODO)
