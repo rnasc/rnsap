@@ -128,7 +128,7 @@ module RnSap
         fields_down.each do |field|
           column = columns_hash[field.upcase]
           value = wa[column.offset.to_i, column.length.to_i]
-          eval("obj.#{field} = '#{value}'")
+          eval("obj.#{field} = '#{value.strip}'")
         end
         list << obj
       end
