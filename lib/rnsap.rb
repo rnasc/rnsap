@@ -10,6 +10,10 @@ require 'preq_detail/preq_contract_limits'
 require 'preq_detail/preq_services'
 require 'preq_detail/preq_services_texts'
 require 'preq_detail/preq_srv_accass_values'
+require 'preq_release_info/preq_gen_release_info'
+require 'preq_release_info/preq_release_prerequisites'
+require 'preq_release_info/preq_release_posted'
+require 'preq_release_info/preq_release_final'
 require 'return'
 require 'helper/rfc_helper'
 
@@ -181,22 +185,18 @@ module RnSap
       fn_preq_rel_strat_info.invoke
 
       #-- Execute conversions for returned tables to a designated list (array)
+      preq_gen_release_info = get_object_list(fn_preq_rel_strat_info[:GENERAL_RELEASE_INFO], PreqGenReleaseInfo.to_s)
+      preq_release_prerequisites = get_object_list(fn_preq_rel_strat_info[:RELEASE_PREREQUISITES], PreqReleasePrerequisites.to_s)
+      preq_release_posted = get_object_list(fn_preq_rel_strat_info[:RELEASE_ALREADY_POSTED], PreqReleasePosted.to_s)
+      preq_release_final = get_object_list(fn_preq_rel_strat_info[:RELEASE_FINAL], PreqReleaseFinal.to_s)
       tb_return = get_object_list(fn_preq_rel_strat_info[:RETURN], Return.to_s)
 
-#  GENERAL_RELEASE_INFO
-#  RELEASE_PREREQUISITES
-#  RELEASE_ALREADY_POSTED
-#  RELEASE_FINAL
-#  RETURN      
       {
-        # preq_items: preq_items,
-        # preq_acct_assignment: preq_acct_assignment,
-        # preq_text: preq_text,
-        # preq_limits: preq_limits,
-        # preq_contract_limits: preq_contract_limits,
-        # preq_services: preq_services,
-        # preq_services_texts: preq_services_texts,
-        # preq_srv_accass_values: preq_srv_accass_values,
+
+        preq_gen_release_info: preq_gen_release_info,
+        preq_release_prerequisites: preq_release_prerequisites,
+        preq_release_posted: preq_release_posted,
+        preq_release_final: preq_release_final,
         tb_return: tb_return,
       }
 
@@ -213,29 +213,6 @@ module RnSap
     private
 
     attr_writer :conn
-
-# def get_object_list(table, klass_name)
-#   list = []
-#   avoid_list = ['!','__','+', '=','!', '?','~','>', '<']
-#   table.each do |row|
-#     byebug
-#     obj = eval("#{klass_name}.new")
-#     obj.class.instance_methods.each do |method_name|
-#       begin
-#         if obj.respond_to?("#{method_name}=")
-#           unless avoid_list.any? { |word| method_name.to_s.include?(word)}
-#             value = row[method_name]
-#             eval("obj.#{method_name} = '#{value}'")
-#           end
-#         end
-#       rescue
-#       end
-#     end
-#     list.push(obj)
-#   end
-
-#   list
-# end
 
     # Dumps to the output the content of an object
     def dump_instance_variables(obj)

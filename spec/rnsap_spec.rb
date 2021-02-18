@@ -58,7 +58,7 @@ describe RnSap::Sap do
       details = conn.preq_detail(pr)
 
       expect(details).not_to be_nil 
-      expect(details.class).to be(Array)
+      expect(details.class).to be(Hash)
     end
 
     it 'gets purchase requisition Release Strategy info' do
@@ -66,7 +66,7 @@ describe RnSap::Sap do
       details = conn.preq_release_strategy_info(pr)
 
       expect(details).not_to be_nil 
-      expect(details.class).to be(Array)
+      expect(details.class).to be(Hash)
     end
   end
 

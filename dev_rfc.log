@@ -215,3 +215,279 @@ NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 
 	The UUID daemon (uuidd) is not active.
 Please ask your system administrator to activate uuidd according to SAP note 1391070.
 
+
+**** Log file opened at 2021-02-18 10:45:44.238680 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 10:45:44.238815 [139907042834240] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 10:47:53.314755 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 10:47:53.316041 [140644541880128] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 10:50:36.238216 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 10:50:36.238346 [140063315244864] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 10:53:01.169682 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 10:53:01.169826 [140194338400064] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 10:54:11.555943 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 10:54:11.556095 [140688356112192] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 10:55:00.081065 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 10:55:00.081192 [140005225097024] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 10:58:36.992740 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 10:58:37.000212 [139925741721408] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:00:03.135967 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:00:03.136099 [139982074681152] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:02:21.952560 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:02:21.952699 [140495159797568] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:04:01.335318 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:04:01.335446 [140507546539840] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:04:58.972062 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:04:58.972224 [140275776325440] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:05:24.057475 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:05:24.057604 [140309753608000] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:06:35.986643 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:06:35.986777 [140458507065152] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:08:26.776281 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:08:26.776404 [139771615123264] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:17:12.632321 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:17:12.632459 [140357923120960] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:18:39.721401 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:18:39.721539 [140665561675584] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:19:38.422135 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:19:38.424534 [140055039289152] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 11:21:02.612421 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 11:21:02.612547 [140296740132672] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 13:29:14.845108 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 13:29:14.847022 [140561000994624] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 13:33:28.384266 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 13:33:28.384403 [139739329484608] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 13:40:07.588431 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 13:40:07.588582 [139886578222912] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 13:41:31.538193 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 13:41:31.538340 [139765919307584] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
+
+**** Log file opened at 2021-02-18 13:42:01.045213 UTC+01:00 (GMT), Encoding UTF-8
+NW RFC Library: SDK variant, Release 750 Patch Level 6, Compiled on Feb  6 2020 09:04:28
+ CPIC library: 753.2019.10.14 version 3, NI library: 40, Kernel Release: 753 Patch Level 525
+ Current working directory: /home/fpoliveira/Git/rnsap, Program: ruby
+ Hardware: AMD/Intel x86_64 with Linux x86_64, Operating_system: Linux 4.19.128-microsoft-standard
+ Hostname: DESKTOP-AKM6HHM, IP address: 127.0.1.1, IPv6 address: fe80::215:5dff:fedd:2f0d
+
+2021-02-18 13:42:01.045355 [140252447307584] >> Error entry
+	The UUID daemon (uuidd) is not active.
+Please ask your system administrator to activate uuidd according to SAP note 1391070.
+
