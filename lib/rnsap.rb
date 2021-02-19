@@ -33,6 +33,9 @@ module RnSap
     # keeps the SAP connection alive during the Sap instance lifecycle
     attr_reader :conn
 
+    INT_TYPES ||= ['b','N']
+    FLOAT_TYPES ||= ['P']
+    DATE_TYPES ||=['D']
     # Constructor requires to receive connection parameters,
     # a hash containint necessary information to logon to SAP
     # @param conn_parms [Hash] SAP Connection Parameters
@@ -46,34 +49,28 @@ module RnSap
     end
 
     def commit(conn)
+
       #-- Execute BAPI_TRANSACTION_COMMIT
-      fn_commit = conn.get_function('BAPI_REQUISITION_RELEASE')
+      fn_commit = conn.get_function('BAPI_TRANSACTION_COMMIT')
       fn_commit = fn_commit.get_function_call
-      fn_commit[:NUMBER] = preq
-      fn_commit[:REL_CODE] = rel_code
-      fn_commit[:ITEM] = item
-      fn_commit[:USE_EXCEPTIONS] = use_exeptions
-      fn_commit[:NO_COMMIT_WORK] = no_commit
+      fn_commit[:WAIT] = 'X'
+
       fn_commit.invoke
-      tb_return = get_object_list(fn_commit[:RETURN], Return.to_s)
+
       {
-        tb_return: tb_return,
+        tb_return: fn_commit[:RETURN],
       }
     end
     
     def rollback(conn)
       #-- Execute BAPI_TRANSACTION_ROLLBACK
-      fn_rollback = conn.get_function('BAPI_REQUISITION_RELEASE')
+      fn_rollback = conn.get_function('BAPI_TRANSACTION_ROLLBACK')
       fn_rollback = fn_rollback.get_function_call
-      fn_rollback[:NUMBER] = preq
-      fn_rollback[:REL_CODE] = rel_code
-      fn_rollback[:ITEM] = item
-      fn_rollback[:USE_EXCEPTIONS] = use_exeptions
-      fn_rollback[:NO_COMMIT_WORK] = no_commit
+
       fn_rollback.invoke
-      tb_return = get_object_list(fn_rollback[:RETURN], Return.to_s)
+
       {
-        tb_return: tb_return,
+        tb_return: fn_rollback[:RETURN],
       }      
     end
 
@@ -154,13 +151,38 @@ module RnSap
       end
 
       list = []
+
       fc_read_table[:DATA].each do |row|
         obj = base_obj.class.new
-        wa = row[:WA]
+        wa = row[:WA].split('|')
+        pos = -1
         fields_down.each do |field|
+          pos = pos + 1
           column = columns_hash[field.upcase]
-          value = wa[column.offset.to_i, column.length.to_i]
-          eval("obj.#{field} = '#{value.strip}'")
+          # value = wa[column.offset.to_i, column.length.to_i]
+          if INT_TYPES.include?(column.type)
+            value = wa[pos].to_i
+            eval("obj.#{field} = #{value}")
+          elsif FLOAT_TYPES.include?(column.type)
+            value = wa[pos].to_f
+            eval("obj.#{field} = #{value}")
+          elsif DATE_TYPES.include?(column.type)
+            value = wa[pos].strip
+            if value == '00000000'
+              eval("obj.#{field} = nil")
+            else
+              value = Date.new(
+                value[0..3], 
+                value[4..5], 
+                value[6..7]
+              )
+              eval("obj.#{field} = #{value}")
+            end            
+          else
+            value = wa[pos].strip
+            eval("obj.#{field} = '#{value}'")
+          end
+
         end
         list << obj
       end
@@ -233,24 +255,30 @@ module RnSap
 
     end
 
-    def preq_release(preq = 0, rel_code = "", no_commit="", item="0000", use_exeptions="X")
+    def preq_release(preq = 0, rel_code = "", no_commit="", item="00000", use_exceptions="")
       #Validate if will release by item ou general
-      if item == "0000" or item == nil or item.empty?
+      if item == "00000" or item == nil or item.empty?
         #-- Execute BAPI_REQUISITION_RELEASE_GEN
         fn_preq_exec_release = @conn.get_function('BAPI_REQUISITION_RELEASE_GEN')
+        fn_preq_exec_release = fn_preq_exec_release.get_function_call
       else
         #-- Execute BAPI_REQUISITION_RELEASE
         fn_preq_exec_release = @conn.get_function('BAPI_REQUISITION_RELEASE')
+        fn_preq_exec_release = fn_preq_exec_release.get_function_call
         fn_preq_exec_release[:ITEM] = item
-        fn_preq_exec_release[:USE_EXCEPTIONS] = use_exeptions
+        fn_preq_exec_release[:USE_EXCEPTIONS] = use_exceptions
       end
-      fn_preq_exec_release = fn_preq_exec_release.get_function_call
+
       fn_preq_exec_release[:NUMBER] = preq
       fn_preq_exec_release[:REL_CODE] = rel_code
       fn_preq_exec_release[:NO_COMMIT_WORK] = no_commit
+
       fn_preq_exec_release.invoke
+
       tb_return = get_object_list(fn_preq_exec_release[:RETURN], Return.to_s)
       {
+        status_new: fn_preq_exec_release[:REL_STATUS_NEW],
+        indicator_new: fn_preq_exec_release[:REL_INDICATOR_NEW],
         tb_return: tb_return,
       }      
     end
