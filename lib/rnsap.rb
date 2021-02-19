@@ -45,6 +45,38 @@ module RnSap
       conn.disconnect
     end
 
+    def commit()
+      #-- Execute BAPI_TRANSACTION_COMMIT
+      fn_commit = @conn.get_function('BAPI_REQUISITION_RELEASE')
+      fn_commit = fn_commit.get_function_call
+      fn_commit[:NUMBER] = preq
+      fn_commit[:REL_CODE] = rel_code
+      fn_commit[:ITEM] = item
+      fn_commit[:USE_EXCEPTIONS] = use_exeptions
+      fn_commit[:NO_COMMIT_WORK] = no_commit
+      fn_commit.invoke
+      tb_return = get_object_list(fn_commit[:RETURN], Return.to_s)
+      {
+        tb_return: tb_return,
+      }
+    end
+    
+    def rollback()
+      #-- Execute BAPI_TRANSACTION_ROLLBACK
+      fn_rollback = @conn.get_function('BAPI_REQUISITION_RELEASE')
+      fn_rollback = fn_rollback.get_function_call
+      fn_rollback[:NUMBER] = preq
+      fn_rollback[:REL_CODE] = rel_code
+      fn_rollback[:ITEM] = item
+      fn_rollback[:USE_EXCEPTIONS] = use_exeptions
+      fn_rollback[:NO_COMMIT_WORK] = no_commit
+      fn_rollback.invoke
+      tb_return = get_object_list(fn_rollback[:RETURN], Return.to_s)
+      {
+        tb_return: tb_return,
+      }      
+    end
+
     # Invokes SAP RFC_READ_TABLE function module remotely, passing
     # the table to be read and receiving back a list of objects of that
     # table.
@@ -192,7 +224,6 @@ module RnSap
       tb_return = get_object_list(fn_preq_rel_strat_info[:RETURN], Return.to_s)
 
       {
-
         preq_gen_release_info: preq_gen_release_info,
         preq_release_prerequisites: preq_release_prerequisites,
         preq_release_posted: preq_release_posted,
@@ -200,6 +231,28 @@ module RnSap
         tb_return: tb_return,
       }
 
+    end
+
+    def preq_release(preq = 0, rel_code = "", no_commit="", item="0000", use_exeptions="X")
+      #Validate if will release by item ou general
+      if item = "0000" or item = nil or item.empty?
+        #-- Execute BAPI_REQUISITION_RELEASE_GEN
+        fn_preq_exec_release = @conn.get_function('BAPI_REQUISITION_RELEASE_GEN')
+      else
+        #-- Execute BAPI_REQUISITION_RELEASE
+        fn_preq_exec_release = @conn.get_function('BAPI_REQUISITION_RELEASE')
+        fn_preq_exec_release[:ITEM] = item
+        fn_preq_exec_release[:USE_EXCEPTIONS] = use_exeptions
+      end
+      fn_preq_exec_release = fn_preq_exec_release.get_function_call
+      fn_preq_exec_release[:NUMBER] = preq
+      fn_preq_exec_release[:REL_CODE] = rel_code
+      fn_preq_exec_release[:NO_COMMIT_WORK] = no_commit
+      fn_preq_exec_release.invoke
+      tb_return = get_object_list(fn_preq_exec_release[:RETURN], Return.to_s)
+      {
+        tb_return: tb_return,
+      }      
     end
 
     def po_detail(po = 0)
