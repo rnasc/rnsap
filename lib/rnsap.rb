@@ -291,6 +291,35 @@ module RnSap
       []
     end
 
+    def authority_check(user, auth_object, field, value)
+      #-- Execute AUTHORITY_CHECK
+      function = @conn.get_function('AUTHORITY_CHECK')
+      fun_call = function.get_function_call
+      
+      fun_call[:USER] = user
+      fun_call[:OBJECT] = auth_object
+      fun_call[:FIELD1] = field
+      fun_call[:VALUE1] = value
+
+      begin
+        fun_call.invoke
+      rescue Exception => ex
+        if ex.to_s.include?('USER_IS_AUTHORIZED')
+          {
+            rc: 0,
+            message: 'Authorized.'
+          }      
+        else
+          {
+            rc: 10, 
+            message: 'User is not authorized.',
+            exception: ex
+          }
+        end
+      end
+
+    end
+
     private
 
     attr_writer :conn
