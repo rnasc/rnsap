@@ -45,9 +45,9 @@ module RnSap
       conn.disconnect
     end
 
-    def commit()
+    def commit(conn)
       #-- Execute BAPI_TRANSACTION_COMMIT
-      fn_commit = @conn.get_function('BAPI_REQUISITION_RELEASE')
+      fn_commit = conn.get_function('BAPI_REQUISITION_RELEASE')
       fn_commit = fn_commit.get_function_call
       fn_commit[:NUMBER] = preq
       fn_commit[:REL_CODE] = rel_code
@@ -61,9 +61,9 @@ module RnSap
       }
     end
     
-    def rollback()
+    def rollback(conn)
       #-- Execute BAPI_TRANSACTION_ROLLBACK
-      fn_rollback = @conn.get_function('BAPI_REQUISITION_RELEASE')
+      fn_rollback = conn.get_function('BAPI_REQUISITION_RELEASE')
       fn_rollback = fn_rollback.get_function_call
       fn_rollback[:NUMBER] = preq
       fn_rollback[:REL_CODE] = rel_code
@@ -235,7 +235,7 @@ module RnSap
 
     def preq_release(preq = 0, rel_code = "", no_commit="", item="0000", use_exeptions="X")
       #Validate if will release by item ou general
-      if item = "0000" or item = nil or item.empty?
+      if item == "0000" or item == nil or item.empty?
         #-- Execute BAPI_REQUISITION_RELEASE_GEN
         fn_preq_exec_release = @conn.get_function('BAPI_REQUISITION_RELEASE_GEN')
       else
