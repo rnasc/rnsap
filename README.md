@@ -14,6 +14,11 @@ available options out there.
 This project is a way to return to the community what I have needed
 and built along the way. 
 
+## This gem
+
+This Gem simplifies that process of calling SAP RFC (Remote Function Call) functions, making it quick to get information back from SAP
+into a Ruby/Rails apps.
+
 ## What you'll find here
 The following function calls are available:
 | RFC                          | Function                                             | Status |
@@ -27,22 +32,16 @@ The following function calls are available:
 | BAPI_REQUISITION_RELEASE_GEN | Purchase Requisition Release (strategy) header level | stable |
 | BAPI_REQUISITION_RELEASE     | Purchase Requisition Release (strategy) item level   | stable |
 
-Most the time, when in need to make SAP RFC calls, we have requirements for simple functions:
-- Read a Table (Done)
-- Get Purchase Requisition details (Done)
-<br/><b>(TODO)</b>
-- Get Purchase Requisition Release Info (TODO)
-- Get Purchase Order details (TODO)
-- Get Purchase Order Release Info (TODO)
-- Release Purchase Requisition (TODO)
-- Release Purchase Order (TODO)
-- Commit Work
-- Do Goods Movement
-- Create Purchase Order
-- Post Finance Document
+This is the list of RFCs to be added here:
+| RFC                  | Function                                     | Status   |
+|----------------------|----------------------------------------------|----------|
+| BAPI_PO_GETDETAIL1   | Gets details from a Purchase Order           | WIP      |
+| BAPI_PO_GETRELINFO   | Gets Release information for a PO            | WIP      |
+| BAPI_PO_RELEASE      | Releases a Purchase Order (Release Strategy) | pipeline |
+| BAPI_GOODSMVT_CREATE | Posts Goods Movement                         | pipeline |
 
-This Gem simplifies that process, making it quick to get information back from SAP
-into a Ruby/Rails apps.
+WIP: Work in progress
+Pipeline: planned to be done
 ## Background
 The NetWeaver SAP RFC framework allows for C/C++ calls to SAP Remote Function Call routines, 
 called Function Modules. 
