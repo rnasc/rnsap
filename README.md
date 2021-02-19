@@ -1,6 +1,31 @@
 # RnSap - SAP RFC 
 [![Gem Version](https://badge.fury.io/rb/rnsap.svg)](https://badge.fury.io/rb/rnsap)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+Have you ever needed to integrate your rails Web application 
+or API to a SAP backend server? 
+
+Have you tried to optimize some process workflow or even expose some relevant information to an internal or external website?
+
+There have been so many occasions when I had to integrate the SAP
+server to the outter world... and I've been used virtually all 
+available options out there. 
+
+This project is a way to return to the community what I have needed
+and built along the way. 
+
+## What you'll find here
+The following function calls are available:
+| RFC                          | Function                                             | Status |
+|------------------------------|------------------------------------------------------|--------|
+| RFC_READ_TABLE               | Reads an SAP table, returning the requested columns  | stable |
+| BAPI_REQUISITION_GETDETAIL   | Obtains information from a Purchase Requisition      | stable |
+| BAPI_REQUISITION_GETRELINFO  | Gets information from a P.Req. release strategy      | stable |
+| BAPI_TRANSACTION_COMMIT      | Commits work                                         | stable |
+| BAPI_TRANSACTION_ROLLBACK    | Rolls back work                                      | stable |
+| AUTHORITY_CHECK              | Checks if an user has authorization for some object  | stable |
+| BAPI_REQUISITION_RELEASE_GEN | Purchase Requisition Release (strategy) header level | stable |
+| BAPI_REQUISITION_RELEASE     | Purchase Requisition Release (strategy) item level   | stable |
 
 Most the time, when in need to make SAP RFC calls, we have requirements for simple functions:
 - Read a Table (Done)
