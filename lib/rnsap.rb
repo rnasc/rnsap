@@ -18,6 +18,9 @@ require 'return'
 require 'helper/rfc_helper'
 require 'helper/util_helper'
 
+require 'po_detail/all'
+
+
 include NWRFC
 include UtilHelper
 
@@ -300,8 +303,89 @@ module RnSap
       end
     end
 
-    def po_detail(po = 0)
-      []
+    def po_detail(po = 0, acc_assignment = "", item_text = "", header_text = "", delivery_address = "", version = "", services = "", serialnumbers = "", invoiceplan = "")
+      #-- Execute BAPI_PO_GETDETAIL1
+      fn_po_detail = @conn.get_function('BAPI_PO_GETDETAIL1')
+      fc_po_detail = fn_po_detail.get_function_call
+      
+      fc_po_detail[:PURCHASEORDER] = po
+      fc_po_detail[:ACCOUNT_ASSIGNMENT] = acc_assignment 
+      fc_po_detail[:ITEM_TEXT] = item_text
+      fc_po_detail[:HEADER_TEXT] =  header_text
+      fc_po_detail[:DELIVERY_ADDRESS] = delivery_address
+      fc_po_detail[:VERSION] = version
+      fc_po_detail[:SERVICES] = services
+      fc_po_detail[:SERIALNUMBERS] = serialnumbers
+      fc_po_detail[:INVOICEPLAN] = invoiceplan
+      
+      fc_po_detail.invoke
+
+      #-- Execute conversions for returned tables to a designated list (array)
+      po_item =  get_object_list(fc_po_detail[:RETURN], PoItem.to_s)
+      po_addrdelivery =  get_object_list(fc_po_detail[:POITEM], PoAddrDelivery.to_s)
+      po_schedule =  get_object_list(fc_po_detail[:POADDRDELIVERY], PoSchedule.to_s)
+      po_account =  get_object_list(fc_po_detail[:POSCHEDULE], PoAccount.to_s)
+      po_cond_header =  get_object_list(fc_po_detail[:POACCOUNT], PoCondHeader.to_s)
+      po_cond =  get_object_list(fc_po_detail[:POCONDHEADER], PoCond.to_s)
+      po_limits =  get_object_list(fc_po_detail[:POCOND], PoLimits.to_s)
+      po_contract_limits =  get_object_list(fc_po_detail[:POLIMITS], PoContractLimits.to_s)
+      po_services =  get_object_list(fc_po_detail[:POCONTRACTLIMITS], PoServices.to_s)
+      po_srv_access_values =  get_object_list(fc_po_detail[:POSERVICES], PoSrvAccessValues.to_s)
+      po_text_header =  get_object_list(fc_po_detail[:POSRVACCESSVALUES], PoTextHeader.to_s)
+      po_text_item =  get_object_list(fc_po_detail[:POTEXTHEADER], PoTextItem.to_s)
+      po_exp_imp_item =  get_object_list(fc_po_detail[:POTEXTITEM], PoExpImpItem.to_s)
+      po_components =  get_object_list(fc_po_detail[:POEXPIMPITEM], PoComponents.to_s)
+      po_shipping_exp =  get_object_list(fc_po_detail[:POCOMPONENTS], PoShippingExp.to_s)
+      po_history =  get_object_list(fc_po_detail[:POSHIPPINGEXP], PoHistory.to_s)
+      po_history_totals =  get_object_list(fc_po_detail[:POHISTORY], PoHistoryTotals.to_s)
+      po_confirmation =  get_object_list(fc_po_detail[:POHISTORY_TOTALS], PoConfirmation.to_s)
+      po_all_versions =  get_object_list(fc_po_detail[:POCONFIRMATION], PoAllVersions.to_s)
+      po_partner =  get_object_list(fc_po_detail[:POALLVERSIONS], PoPartner.to_s)
+      po_extension_out =  get_object_list(fc_po_detail[:POPARTNER], PoExtensionOut.to_s)
+      po_serial_number =  get_object_list(fc_po_detail[:POEXTENSIONOUT], PoSerialNumber.to_s)
+      po_inv_plan_header =  get_object_list(fc_po_detail[:POSERIALNUMBER], PoInvPlanHeader.to_s)
+      po_inv_plan_item =  get_object_list(fc_po_detail[:POINVPLANHEADER], PoInvPlanItem.to_s)
+      po_history_ma =  get_object_list(fc_po_detail[:POINVPLANITEM], PoHistoryMa.to_s)
+      po_header =  get_object_list(fc_po_detail[:POHISTORY_MA], PoHeader.to_s)
+      po_exp_imp_header =  get_object_list(fc_po_detail[:POHEADER], PoExpImpHeader.to_s)      
+      tb_return = get_object_list(fc_po_detail[:RETURN], Return.to_s)
+
+      retcode = tb_return.detect{|r| r.type == 'E'} 
+
+      if retcode
+        api_return_error(retcode)
+      else
+        api_return_success({
+          po_item: po_item,
+          po_addrdelivery: po_addrdelivery,
+          po_schedule: po_schedule,
+          po_account: po_account,
+          po_cond_header: po_cond_header,
+          po_cond: po_cond,
+          po_limits: po_limits,
+          po_contract_limits: po_contract_limits,
+          po_services: po_services,
+          po_srv_access_values: po_srv_access_values,
+          po_text_header: po_text_header,
+          po_text_item: po_text_item,
+          po_exp_imp_item: po_exp_imp_item,
+          po_components: po_components,
+          po_shipping_exp: po_shipping_exp,
+          po_history: po_history,
+          po_history_totals: po_history_totals,
+          po_confirmation: po_confirmation,
+          po_all_versions: po_all_versions,
+          po_partner: po_partner,
+          po_extension_out: po_extension_out,
+          po_serial_number: po_serial_number,
+          po_inv_plan_header: po_inv_plan_header,
+          po_inv_plan_item: po_inv_plan_item,
+          po_history_ma: po_history_ma,
+          po_header: po_header,
+          po_exp_imp_header: po_exp_imp_header,
+          tb_return: tb_return,
+        })
+      end
     end
 
     def po_release_strategy_info(po = 1)
