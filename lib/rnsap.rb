@@ -16,8 +16,10 @@ require 'preq_release_info/preq_release_posted'
 require 'preq_release_info/preq_release_final'
 require 'return'
 require 'helper/rfc_helper'
+require 'helper/util_helper'
 
 include NWRFC
+include UtilHelper
 
 # Module for SAP helper methods. RnSap allows for a simpler
 # manner to access SAP servers calling RFC BAPIs.
@@ -57,9 +59,7 @@ module RnSap
 
       fn_commit.invoke
 
-      {
-        tb_return: fn_commit[:RETURN],
-      }
+      api_return_success({tb_return: fn_commit[:RETURN]})
     end
     
     def rollback(conn)
@@ -69,9 +69,7 @@ module RnSap
 
       fn_rollback.invoke
 
-      {
-        tb_return: fn_rollback[:RETURN],
-      }      
+      api_return_success({tb_return: fn_rollback[:RETURN]})
     end
 
     # Invokes SAP RFC_READ_TABLE function module remotely, passing
@@ -214,17 +212,24 @@ module RnSap
       preq_srv_accass_values = get_object_list(fc_preq_detail[:REQUISITION_SRV_ACCASS_VALUES], PreqServicesAccassValues.to_s)
       tb_return = get_object_list(fc_preq_detail[:RETURN], Return.to_s)
 
-      {
-        preq_items: preq_items,
-        preq_acct_assignment: preq_acct_assignment,
-        preq_text: preq_text,
-        preq_limits: preq_limits,
-        preq_contract_limits: preq_contract_limits,
-        preq_services: preq_services,
-        preq_services_texts: preq_services_texts,
-        preq_srv_accass_values: preq_srv_accass_values,
-        tb_return: tb_return,
-      }
+      retcode = tb_return.detect{|r| r.type == 'E'} 
+
+      if retcode
+        api_return_error(retcode)
+      else
+        api_return_success({
+          preq_items: preq_items,
+          preq_acct_assignment: preq_acct_assignment,
+          preq_text: preq_text,
+          preq_limits: preq_limits,
+          preq_contract_limits: preq_contract_limits,
+          preq_services: preq_services,
+          preq_services_texts: preq_services_texts,
+          preq_srv_accass_values: preq_srv_accass_values,
+          tb_return: tb_return,
+        })
+      end
+      
     end
 
     def preq_release_strategy_info(preq = 0, item = "00000", rel_code = "")
@@ -245,14 +250,19 @@ module RnSap
       preq_release_final = get_object_list(fn_preq_rel_strat_info[:RELEASE_FINAL], PreqReleaseFinal.to_s)
       tb_return = get_object_list(fn_preq_rel_strat_info[:RETURN], Return.to_s)
 
-      {
-        preq_gen_release_info: preq_gen_release_info,
-        preq_release_prerequisites: preq_release_prerequisites,
-        preq_release_posted: preq_release_posted,
-        preq_release_final: preq_release_final,
-        tb_return: tb_return,
-      }
+      retcode = tb_return.detect{|r| r.type == 'E'} 
 
+      if retcode
+        api_return_error(retcode)
+      else
+        api_return_success({
+          preq_gen_release_info: preq_gen_release_info,
+          preq_release_prerequisites: preq_release_prerequisites,
+          preq_release_posted: preq_release_posted,
+          preq_release_final: preq_release_final,
+          tb_return: tb_return,
+        })
+      end
     end
 
     def preq_release(preq = 0, rel_code = "", no_commit="", item="00000", use_exceptions="")
@@ -276,11 +286,18 @@ module RnSap
       fn_preq_exec_release.invoke
 
       tb_return = get_object_list(fn_preq_exec_release[:RETURN], Return.to_s)
-      {
-        status_new: fn_preq_exec_release[:REL_STATUS_NEW],
-        indicator_new: fn_preq_exec_release[:REL_INDICATOR_NEW],
-        tb_return: tb_return,
-      }      
+
+      retcode = tb_return.detect{|r| r.type == 'E'} 
+
+      if retcode
+        api_return_error(retcode)
+      else
+        api_return_success({
+          status_new: fn_preq_exec_release[:REL_STATUS_NEW],
+          indicator_new: fn_preq_exec_release[:REL_INDICATOR_NEW],
+          tb_return: tb_return,
+        })
+      end
     end
 
     def po_detail(po = 0)
@@ -291,6 +308,15 @@ module RnSap
       []
     end
 
+    # Performs SAP Authority check on a certain authorization
+    # object. For more details on SAP authorization, 
+    # this link will provide good details:
+    # * https://www.sdn.sap.com/irj/scn/index?rid=/library/uuid/a92195a9-0b01-0010-909c-f330ea4a585c&overridelayout=true
+    # * https://blogs.sap.com/2020/11/14/some-important-information-about-sap-authorization-objects/
+    # @param user [String] SAP userid for which authorization will be performed
+    # @param auth_object [String] Authorization object to be checked in SAP
+    # @param field [String] Authorization field checked within the authorization object
+    # @param value [String] Authorization value to be checked. (i.e. 01 for creation, 02 for change, XX for release code)
     def authority_check(user, auth_object, field, value)
       #-- Execute AUTHORITY_CHECK
       function = @conn.get_function('AUTHORITY_CHECK')
@@ -305,19 +331,24 @@ module RnSap
         fun_call.invoke
       rescue Exception => ex
         if ex.to_s.include?('USER_IS_AUTHORIZED')
-          {
-            rc: 0,
-            message: 'Authorized.'
-          }      
+          api_return(0,'Authorized');
         else
-          {
-            rc: 10, 
-            message: 'User is not authorized.',
-            exception: ex
-          }
+          api_return(8,'User is not authorized.')
         end
       end
 
+    end
+
+    def api_return_success(obj=nil )
+      UtilHelper.api_return(0, 'Success!', obj)
+    end
+
+    def api_return_error(obj={}, exception=nil)
+      UtilHelper.api_return(8, 'Error.', obj, exception)
+    end
+
+    def api_return(rc=0, message ='', obj=nil, exception=nil )
+      UtilHelper.api_return(rc, message, obj, exception)
     end
 
     private
