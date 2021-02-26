@@ -2,24 +2,17 @@
 
 require 'nwrfc'
 require 'read_table/table_column'
-require 'preq_detail/preq_item'
-require 'preq_detail/preq_acct_assignment'
-require 'preq_detail/preq_text'
-require 'preq_detail/preq_limits'
-require 'preq_detail/preq_contract_limits'
-require 'preq_detail/preq_services'
-require 'preq_detail/preq_services_texts'
-require 'preq_detail/preq_srv_accass_values'
-require 'preq_release_info/preq_gen_release_info'
-require 'preq_release_info/preq_release_prerequisites'
-require 'preq_release_info/preq_release_posted'
-require 'preq_release_info/preq_release_final'
+
 require 'return'
-require 'helper/rfc_helper'
-require 'helper/util_helper'
+
+require 'preq_detail/all'
+require 'preq_release_info/all'
 
 require 'po_detail/all'
+require 'po_release_info/all'
 
+require 'helper/rfc_helper'
+require 'helper/util_helper'
 
 include NWRFC
 include UtilHelper
@@ -388,8 +381,30 @@ module RnSap
       end
     end
 
-    def po_release_strategy_info(po = 1)
-      api_return_success ({return: 'WIP'})
+    def po_release_strategy_info(po = 0, po_rel_code = "")
+      #-- Execute BAPI_PO_GETRELINFO
+      fn_po_rel_strat_info = @conn.get_function('BAPI_PO_GETRELINFO')
+      fc_po_rel_strat_info = fn_po_rel_strat_info.get_function_call
+      
+      fc_po_rel_strat_info[:PURCHASEORDER] = po
+      fc_po_rel_strat_info[:PO_REL_CODE] = po_rel_code
+      
+      fc_po_rel_strat_info.invoke
+
+      #-- Execute conversions for returned tables to a designated list (array)
+      po_release_final =  get_object_list(fc_po_rel_strat_info[:RELEASE_FINAL], PoReleaseFinal.to_s)
+      tb_return = get_object_list(fc_po_rel_strat_info[:RETURN], Return.to_s)
+
+      retcode = tb_return.detect{|r| r.type == 'E'} 
+
+      if retcode
+        api_return_error(retcode)
+      else
+        api_return_success({
+          po_release_final: po_release_final,
+          tb_return: tb_return,
+        })
+      end
     end
 
     # Performs SAP Authority check on a certain authorization

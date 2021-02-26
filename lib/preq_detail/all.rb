@@ -1,0 +1,8 @@
+require 'preq_detail/preq_item'
+require 'preq_detail/preq_acct_assignment'
+require 'preq_detail/preq_text'
+require 'preq_detail/preq_limits'
+require 'preq_detail/preq_contract_limits'
+require 'preq_detail/preq_services'
+require 'preq_detail/preq_services_texts'
+require 'preq_detail/preq_srv_accass_values'

@@ -1,0 +1,4 @@
+require 'preq_release_info/preq_gen_release_info'
+require 'preq_release_info/preq_release_prerequisites'
+require 'preq_release_info/preq_release_posted'
+require 'preq_release_info/preq_release_final'
