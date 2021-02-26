@@ -205,15 +205,15 @@ module RnSap
       fc_preq_detail.invoke
 
       #-- Execute conversions for returned tables to a designated list (array)
-      preq_items = get_object_list(fc_preq_detail[:REQUISITION_ITEMS], PreqItem.to_s)
-      preq_acct_assignment = get_object_list(fc_preq_detail[:REQUISITION_ACCOUNT_ASSIGNMENT], PreqAcctAssignment.to_s)
-      preq_text = get_object_list(fc_preq_detail[:REQUISITION_TEXT], PreqText.to_s)
-      preq_limits = get_object_list(fc_preq_detail[:REQUISITION_LIMITS], PreqLimits.to_s)
-      preq_contract_limits = get_object_list(fc_preq_detail[:REQUISITION_CONTRACT_LIMITS], PreqContractLimits.to_s)
-      preq_services = get_object_list(fc_preq_detail[:REQUISITION_SERVICES], PreqItem.to_s)
-      preq_services_texts = get_object_list(fc_preq_detail[:REQUISITION_SERVICES_TEXTS], PreqServicesText.to_s)
-      preq_srv_accass_values = get_object_list(fc_preq_detail[:REQUISITION_SRV_ACCASS_VALUES], PreqServicesAccassValues.to_s)
-      tb_return = get_object_list(fc_preq_detail[:RETURN], Return.to_s)
+      preq_items = get_object_list(fc_preq_detail[:REQUISITION_ITEMS], PreqItem)
+      preq_acct_assignment = get_object_list(fc_preq_detail[:REQUISITION_ACCOUNT_ASSIGNMENT], PreqAcctAssignment)
+      preq_text = get_object_list(fc_preq_detail[:REQUISITION_TEXT], PreqText)
+      preq_limits = get_object_list(fc_preq_detail[:REQUISITION_LIMITS], PreqLimits)
+      preq_contract_limits = get_object_list(fc_preq_detail[:REQUISITION_CONTRACT_LIMITS], PreqContractLimits)
+      preq_services = get_object_list(fc_preq_detail[:REQUISITION_SERVICES], PreqItem)
+      preq_services_texts = get_object_list(fc_preq_detail[:REQUISITION_SERVICES_TEXTS], PreqServicesText)
+      preq_srv_accass_values = get_object_list(fc_preq_detail[:REQUISITION_SRV_ACCASS_VALUES], PreqServicesAccassValues)
+      tb_return = get_object_list(fc_preq_detail[:RETURN], Return)
 
       retcode = tb_return.detect{|r| r.type == 'E'} 
 
@@ -247,11 +247,11 @@ module RnSap
       fn_preq_rel_strat_info.invoke
 
       #-- Execute conversions for returned tables to a designated list (array)
-      preq_gen_release_info = get_object_list(fn_preq_rel_strat_info[:GENERAL_RELEASE_INFO], PreqGenReleaseInfo.to_s)
-      preq_release_prerequisites = get_object_list(fn_preq_rel_strat_info[:RELEASE_PREREQUISITES], PreqReleasePrerequisites.to_s)
-      preq_release_posted = get_object_list(fn_preq_rel_strat_info[:RELEASE_ALREADY_POSTED], PreqReleasePosted.to_s)
-      preq_release_final = get_object_list(fn_preq_rel_strat_info[:RELEASE_FINAL], PreqReleaseFinal.to_s)
-      tb_return = get_object_list(fn_preq_rel_strat_info[:RETURN], Return.to_s)
+      preq_gen_release_info = get_object_list(fn_preq_rel_strat_info[:GENERAL_RELEASE_INFO], PreqGenReleaseInfo)
+      preq_release_prerequisites = get_object_list(fn_preq_rel_strat_info[:RELEASE_PREREQUISITES], PreqReleasePrerequisites)
+      preq_release_posted = get_object_list(fn_preq_rel_strat_info[:RELEASE_ALREADY_POSTED], PreqReleasePosted)
+      preq_release_final = get_object_list(fn_preq_rel_strat_info[:RELEASE_FINAL], PreqReleaseFinal)
+      tb_return = get_object_list(fn_preq_rel_strat_info[:RETURN], Return)
 
       retcode = tb_return.detect{|r| r.type == 'E'} 
 
@@ -288,7 +288,7 @@ module RnSap
 
       fn_preq_exec_release.invoke
 
-      tb_return = get_object_list(fn_preq_exec_release[:RETURN], Return.to_s)
+      tb_return = get_object_list(fn_preq_exec_release[:RETURN], Return)
 
       retcode = tb_return.detect{|r| r.type == 'E'} 
 
@@ -321,33 +321,34 @@ module RnSap
       fc_po_detail.invoke
 
       #-- Execute conversions for returned tables to a designated list (array)
-      po_item =  get_object_list(fc_po_detail[:POITEM], PoItem.to_s)
-      po_addrdelivery =  get_object_list(fc_po_detail[:POADDRDELIVERY], PoAddrDelivery.to_s)
-      po_schedule =  get_object_list(fc_po_detail[:POSCHEDULE], PoSchedule.to_s)
-      po_account =  get_object_list(fc_po_detail[:POACCOUNT], PoAccount.to_s)
-      po_cond_header =  get_object_list(fc_po_detail[:POCONDHEADER], PoCondHeader.to_s)
-      po_cond =  get_object_list(fc_po_detail[:POCOND], PoCond.to_s)
-      po_limits =  get_object_list(fc_po_detail[:POLIMITS], PoLimits.to_s)
-      po_contract_limits =  get_object_list(fc_po_detail[:POCONTRACTLIMITS], PoContractLimits.to_s)
-      po_services =  get_object_list(fc_po_detail[:POSERVICES], PoServices.to_s)
-      po_srv_access_values =  get_object_list(fc_po_detail[:POSRVACCESSVALUES], PoSrvAccessValues.to_s)
-      po_text_header =  get_object_list(fc_po_detail[:POTEXTHEADER], PoTextHeader.to_s)
-      po_text_item =  get_object_list(fc_po_detail[:POTEXTITEM], PoTextItem.to_s)
-      po_exp_imp_item =  get_object_list(fc_po_detail[:POEXPIMPITEM], PoExpImpItem.to_s)
-      po_components =  get_object_list(fc_po_detail[:POCOMPONENTS], PoComponents.to_s)
-      po_shipping_exp =  get_object_list(fc_po_detail[:POSHIPPINGEXP], PoShippingExp.to_s)
-      po_history =  get_object_list(fc_po_detail[:POHISTORY], PoHistory.to_s)
-      po_history_totals =  get_object_list(fc_po_detail[:POHISTORY_TOTALS], PoHistoryTotals.to_s)
-      po_confirmation =  get_object_list(fc_po_detail[:POCONFIRMATION], PoConfirmation.to_s)
-      po_all_versions =  get_object_list(fc_po_detail[:POALLVERSIONS], PoAllVersions.to_s)
-      po_partner =  get_object_list(fc_po_detail[:POPARTNER], PoPartner.to_s)
-      po_extension_out =  get_object_list(fc_po_detail[:POEXTENSIONOUT], PoExtensionOut.to_s)
-      po_serial_number =  get_object_list(fc_po_detail[:POSERIALNUMBER], PoSerialNumber.to_s)
-      po_inv_plan_header =  get_object_list(fc_po_detail[:POINVPLANHEADER], PoInvPlanHeader.to_s)
-      po_inv_plan_item =  get_object_list(fc_po_detail[:POINVPLANITEM], PoInvPlanItem.to_s)
-      po_history_ma =  get_object_list(fc_po_detail[:POHISTORY_MA], PoHistoryMa.to_s)
-      po_header =  get_object_list(fc_po_detail[:POHEADER], PoHeader.to_s)
-      po_exp_imp_header =  get_object_list(fc_po_detail[:POEXPIMPHEADER], PoExpImpHeader.to_s)
+      po_item =  get_object_list(fc_po_detail[:POITEM], PoItem)
+      po_addrdelivery =  get_object_list(fc_po_detail[:POADDRDELIVERY], PoAddrDelivery)
+      po_schedule =  get_object_list(fc_po_detail[:POSCHEDULE], PoSchedule)
+      po_account =  get_object_list(fc_po_detail[:POACCOUNT], PoAccount)
+      po_cond_header =  get_object_list(fc_po_detail[:POCONDHEADER], PoCondHeader)
+      po_cond =  get_object_list(fc_po_detail[:POCOND], PoCond)
+      po_limits =  get_object_list(fc_po_detail[:POLIMITS], PoLimits)
+      po_contract_limits =  get_object_list(fc_po_detail[:POCONTRACTLIMITS], PoContractLimits)
+      po_services =  get_object_list(fc_po_detail[:POSERVICES], PoServices)
+      po_srv_access_values =  get_object_list(fc_po_detail[:POSRVACCESSVALUES], PoSrvAccessValues)
+      po_text_header =  get_object_list(fc_po_detail[:POTEXTHEADER], PoTextHeader)
+      po_text_item =  get_object_list(fc_po_detail[:POTEXTITEM], PoTextItem)
+      po_exp_imp_item =  get_object_list(fc_po_detail[:POEXPIMPITEM], PoExpImpItem)
+      po_components =  get_object_list(fc_po_detail[:POCOMPONENTS], PoComponents)
+      po_shipping_exp =  get_object_list(fc_po_detail[:POSHIPPINGEXP], PoShippingExp)
+      po_history =  get_object_list(fc_po_detail[:POHISTORY], PoHistory)
+      po_history_totals =  get_object_list(fc_po_detail[:POHISTORY_TOTALS], PoHistoryTotals)
+      po_confirmation =  get_object_list(fc_po_detail[:POCONFIRMATION], PoConfirmation)
+      po_all_versions =  get_object_list(fc_po_detail[:ALLVERSIONS], PoAllVersions)
+      po_partner =  get_object_list(fc_po_detail[:POPARTNER], PoPartner)
+      po_extension_out =  get_object_list(fc_po_detail[:EXTENSIONOUT], PoExtensionOut)
+      po_serial_number =  get_object_list(fc_po_detail[:SERIALNUMBER], PoSerialNumber)
+      po_inv_plan_header =  get_object_list(fc_po_detail[:INVPLANHEADER], PoInvPlanHeader)
+      po_inv_plan_item =  get_object_list(fc_po_detail[:INVPLANITEM], PoInvPlanItem)
+      po_history_ma =  get_object_list(fc_po_detail[:POHISTORY_MA], PoHistoryMa)
+      po_header =  get_object(fc_po_detail[:POHEADER], PoHeader)
+      po_exp_imp_header =  get_object(fc_po_detail[:POEXPIMPHEADER], PoExpImpHeader)
+      tb_return = get_object_list(fc_po_detail[:RETURN], Return)
       
       retcode = tb_return.detect{|r| r.type == 'E'} 
 
@@ -388,7 +389,7 @@ module RnSap
     end
 
     def po_release_strategy_info(po = 1)
-      []
+      api_return_success ({return: 'WIP'})
     end
 
     # Performs SAP Authority check on a certain authorization
