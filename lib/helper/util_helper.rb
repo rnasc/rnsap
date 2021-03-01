@@ -1,5 +1,5 @@
 module UtilHelper
-  require 'JSON'
+  require 'json'
 
   def log(msg='no message')
     puts obj_to_s(msg)
