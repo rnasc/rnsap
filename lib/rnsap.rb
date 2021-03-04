@@ -165,12 +165,11 @@ module RnSap
             if value == '00000000'
               eval("obj.#{field} = nil")
             else
-              value = Date.new(
-                value[0..3], 
-                value[4..5], 
-                value[6..7]
-              )
-              eval("obj.#{field} = #{value}")
+              year = value[0..3].to_i
+              month = value[4..5].to_i
+              day = value[6..7].to_i
+              # value = Date.new(year, month, day)
+              eval("obj.#{field} = Date.new(#{year}, #{month}, #{day}) ")
             end            
           else
             value = wa[pos].strip
