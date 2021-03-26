@@ -161,8 +161,7 @@ module RnSap
             value = wa[pos].to_f
             eval("obj.#{field} = #{value}")
           elsif DATE_TYPES.include?(column.type)
-            value = wa[pos].strip
-            if value == '00000000'
+            if value.nil? || value == '00000000'
               eval("obj.#{field} = nil")
             else
               year = value[0..3].to_i
@@ -172,7 +171,11 @@ module RnSap
               eval("obj.#{field} = Date.new(#{year}, #{month}, #{day}) ")
             end            
           else
-            value = wa[pos].strip
+            begin
+              value = wa[pos].strip
+            rescue
+              value = ''
+            end
             eval("obj.#{field} = '#{value}'")
           end
 

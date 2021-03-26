@@ -2,9 +2,9 @@
 
 Gem::Specification.new do |s|
   s.name = 'rnsap'
-  s.version = '0.4.11'
+  s.version = '0.4.12'
   s.licenses = ['MIT']
-  s.date = '2020-04-30'
+  s.date = '2021-03-26'
   s.summary = 'Facilitates SAP RFC calls in Ruby'
   s.description = 'By encapsulating SAP''s NW RFC library calls, Ruby routines can access SAP power in a simpler manner'
   s.authors = ['Rogerio Nascimento']
