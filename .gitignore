@@ -1,2 +1,3 @@
 secret*
 *.gem
+auth_test.rb
