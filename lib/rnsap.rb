@@ -2,6 +2,7 @@
 
 require 'nwrfc'
 require 'read_table/table_column'
+require 'auth'
 
 require 'return'
 
@@ -440,6 +441,37 @@ module RnSap
 
     end
 
+    ##
+    # Gets a list of users with authorization for a given
+    # authorization object and content
+    # @params:
+    # - obj [String] SAP authorization Object
+    #                   Ex: for Purchase Requisitions M_EINK_FRG
+    # - field1 [String] Object authorization's field. 
+    #                   Ex: for Release Group FRGGR
+    # - value1 [String] Field Value
+    #                   Ex: any valid Release Group in the instalation
+    # - field2 [String] Object authorization's field. 
+    #                   Ex: for Release Code FRGCO
+    # - value2 [String] Field Value
+    #                   Ex: any valid Release Code in the instalation
+    # @return [Array] Array of strings with the SAP userids
+    def users_for_auth_object(obj, field1, value1, field2, value2)
+      Auth.for_object(
+        conn: self, 
+        obj: obj, 
+        field1: field1, 
+        value1: value1, 
+        field2: field2, 
+        value2: value2,
+      )
+    end
+    
+
+
+    private
+    attr_writer :conn
+
     def api_return_success(obj=nil )
       UtilHelper.api_return(0, 'Success!', obj)
     end
@@ -452,9 +484,7 @@ module RnSap
       UtilHelper.api_return(rc, message, obj, exception)
     end
 
-    private
-
-    attr_writer :conn
+    
 
     # Dumps to the output the content of an object
     def dump_instance_variables(obj)
@@ -464,6 +494,8 @@ module RnSap
       end
     end
 
+    KLASS_LIST = {}
+
     # Dynamically returns a class instance with the name 'name' and with each
     # of its fields as an attribute
     # @param name [String] name of the intended class instance
@@ -471,7 +503,13 @@ module RnSap
     # @return [Object] instance of the object 'Name'
     def get_class_instance(name, fields)
       # puts "Class name: #{name}"
-      klass = Object.const_set(name, Class.new).new # , Struct.new(*attributes)
+      pre_created = KLASS_LIST[name]
+      if pre_created
+        klass = pre_created.new
+      else
+        KLASS_LIST[name] = Object.const_set(name, Class.new)
+        klass = KLASS_LIST[name].new # , Struct.new(*attributes)
+      end
       fields.each do |field|
         klass.class.module_eval { attr_accessor field.downcase }
       end

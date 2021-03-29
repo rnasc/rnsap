@@ -6,7 +6,7 @@ class Auth
   # for an object
   # @param json containing authorization object and optionaly
   #        the tuples with field and value to be checked
-  # @return an array of strings with the list of users 
+  # @return [Array] an array of strings with the list of users 
   def self.for_object(*options)
     users = []
     conn, obj, field1, value1, field2, value2 = validate_options(options)
@@ -102,7 +102,6 @@ class Auth
       filter.push( "'#{ust.auth}'  ,  ")
     end
     filter = filter.uniq
-    puts filter
 
     new_last = "#{filter.last[0..(filter.last.length - 4)]} )"
     filter = filter[0..-1].push(new_last)

@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = 'rnsap'
-  s.version = '0.4.13'
+  s.version = '0.4.14'
   s.licenses = ['MIT']
   s.date = '2021-03-26'
   s.summary = 'Facilitates SAP RFC calls in Ruby'
-  s.description = 'By encapsulating SAP''s NW RFC library calls, Ruby routines can access SAP power in a simpler manner'
+  s.description = 'By encapsulating SAP''s NW RFC library calls, Ruby routines achieve SAP bunsiness functionality''s power in a simpler manner'
   s.authors = ['Rogerio Nascimento']
   s.homepage    = 'https://github.com/rnasc/rnsap'
   s.metadata    = { 'source_code_uri' => 'https://github.com/rnasc/rnsap' }
