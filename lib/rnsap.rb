@@ -162,6 +162,7 @@ module RnSap
             value = wa[pos].to_f
             eval("obj.#{field} = #{value}")
           elsif DATE_TYPES.include?(column.type)
+            value = wa[pos]
             if value.nil? || value == '00000000'
               eval("obj.#{field} = nil")
             else
