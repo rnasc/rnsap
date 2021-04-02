@@ -469,10 +469,6 @@ module RnSap
     end
     
 
-
-    private
-    attr_writer :conn
-
     def api_return_success(obj=nil )
       UtilHelper.api_return(0, 'Success!', obj)
     end
@@ -485,8 +481,11 @@ module RnSap
       UtilHelper.api_return(rc, message, obj, exception)
     end
 
-    
 
+    private
+    attr_writer :conn
+
+  
     # Dumps to the output the content of an object
     def dump_instance_variables(obj)
       puts "Class: #{obj.class} -> #{obj}"
