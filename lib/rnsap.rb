@@ -3,11 +3,13 @@
 require 'nwrfc'
 require 'read_table/table_column'
 require 'auth'
+require 'currency'
 
 require 'return'
 
 require 'preq_detail/all'
 require 'preq_release_info/all'
+require 'preq_release_items/all'
 
 require 'po_detail/all'
 require 'po_release_info/all'
@@ -300,6 +302,29 @@ module RnSap
       end
     end
 
+    def preq_release_items(group = '', code = '')
+      fname = @conn.get_function('BAPI_REQUISITION_GETITEMSREL')
+      fcall = fname.get_function_call
+
+      fcall[:REL_GROUP] = group
+      fcall[:REL_CODE] = code
+      fcall[:ITEMS_FOR_RELEASE] = 'X'
+
+      fcall.invoke
+
+      tb_return = get_object_list(fcall[:RETURN], Return)
+      requisition_items = get_object_list(fcall[:REQUISITION_ITEMS], RequisitionItems)
+
+      retcode = tb_return.detect{|r| r.type == 'E'} 
+
+      if retcode
+        api_return_error(retcode)
+      else
+        api_return_success(requisition_items)
+      end
+
+    end
+
     def po_detail(po = 0, acc_assignment = "", item_text = "", header_text = "", delivery_address = "", version = "", services = "", serialnumbers = "", invoiceplan = "")
       #-- Execute BAPI_PO_GETDETAIL1
       fn_po_detail = @conn.get_function('BAPI_PO_GETDETAIL1')
@@ -465,6 +490,16 @@ module RnSap
         value1: value1, 
         field2: field2, 
         value2: value2,
+      )
+    end
+
+    def currency_conversion(amount = 0.0, from_curr = 'EUR', to_curr = 'USD', date = Date.today)
+      Currency.convert_currency_amount(
+        conn: self, 
+        amount: amount, 
+        from_curr: from_curr, 
+        to_curr: to_curr, 
+        date: date
       )
     end
     
